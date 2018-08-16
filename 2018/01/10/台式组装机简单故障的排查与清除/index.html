@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原创分享," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="台式组装机简单故障的排查与清除本文主要讲述台式机部分简单故障的排查与清除。">
+<meta name="keywords" content="原创分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台式组装机简单故障的排查与清除">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/台式组装机简单故障的排查与清除/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="台式组装机简单故障的排查与清除本文主要讲述台式机部分简单故障的排查与清除。">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515576804599&di=46abba220da8ec2bb1ddb92cd274221b&imgtype=0&src=http%3A%2F%2Fimage.koolshare.cn%2Fattachment%2Fforum%2F201609%2F12%2F091124dco07lrr03nr2do1.jpg">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515576981498&di=3cf8957e2472e59dc0faf49ac562102c&imgtype=0&src=http%3A%2F%2Fcms-bucket.nosdn.127.net%2Fcatchpic%2Fa%2Fa5%2Fa55f2694355a0bc74206fefab1ac6689.jpg%3FimageView%26thumbnail%3D550x0">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515576479967&di=b42187a73d3b1c0f31208fb41aabc14b&imgtype=0&src=http%3A%2F%2Fwww.udaxia.com%2Fuploads%2Fallimg%2F140813%2F6-140Q3092UbP.png">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515580205230&di=6d24f65914e8f61629558fa687e5dbf5&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F4ec2d5628535e5ddf67ce19770c6a7efce1b6221.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-c458a540e41c463c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-46b4de214a0061b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-128f1111350fb6f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-bf88202bfb264a10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-8a87072d2c962ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-5060e67482d09ead.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-dc1f84313fbcfe82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-30T06:16:45.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台式组装机简单故障的排查与清除">
+<meta name="twitter:description" content="台式组装机简单故障的排查与清除本文主要讲述台式机部分简单故障的排查与清除。">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515576804599&di=46abba220da8ec2bb1ddb92cd274221b&imgtype=0&src=http%3A%2F%2Fimage.koolshare.cn%2Fattachment%2Fforum%2F201609%2F12%2F091124dco07lrr03nr2do1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/10/台式组装机简单故障的排查与清除/"/>
+
+
+
+
+
+  <title>台式组装机简单故障的排查与清除 | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/台式组装机简单故障的排查与清除/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">台式组装机简单故障的排查与清除</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T12:31:30+08:00">
+                2018-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/10/台式组装机简单故障的排查与清除/" class="leancloud_visitors" data-flag-title="台式组装机简单故障的排查与清除">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="台式组装机简单故障的排查与清除"><a href="#台式组装机简单故障的排查与清除" class="headerlink" title="台式组装机简单故障的排查与清除"></a>台式组装机简单故障的排查与清除</h2><p>本文主要讲述台式机部分简单故障的排查与清除。</p>
+<a id="more"></a>
+<h3 id="故障一：不能正常开机"><a href="#故障一：不能正常开机" class="headerlink" title="故障一：不能正常开机"></a>故障一：不能正常开机</h3><p>此故障在电脑使用中最为常见，原因也是五花八门，下面我给大家梳理一些常见的故障以及清除方法：</p>
+<h4 id="电脑开机，反复重启"><a href="#电脑开机，反复重启" class="headerlink" title="电脑开机，反复重启"></a>电脑开机，反复重启</h4><p>这种问题十有八九就是<strong><a href="https://baike.baidu.com/item/%E5%86%85%E5%AD%98" target="_blank" rel="external">内存</a></strong>的问题，下图就是内存：目前主流内存有DDR3和DDR4</p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1515576804599&amp;di=46abba220da8ec2bb1ddb92cd274221b&amp;imgtype=0&amp;src=http%3A%2F%2Fimage.koolshare.cn%2Fattachment%2Fforum%2F201609%2F12%2F091124dco07lrr03nr2do1.jpg" alt="内存：带马甲的是DDR4另外一个是DDR3"></p>
+<ul>
+<li>如果有空闲的内存插槽，请尝试调整内存安装位置；如不能解决下一条。</li>
+<li>如果无法调整位置，请尝试使用橡皮擦蘸酒精擦拭内存金手指位置；如不能解决下一条。</li>
+<li>如果无法调整位置，请尝试交换内存安装位置；如不能解决下一条。</li>
+<li>如果无法调整位置，请尝试选择拆卸内存，然后每装一根开机一次看看问题是否得到解决，如果确定问题内存建议联系卖家；如不能解决下一条。</li>
+<li>实在无法解决请更换内存；</li>
+<li>此问题目前我多见于威刚内存</li>
+</ul>
+<h4 id="电脑开机主机启动正常，但显示器无反应"><a href="#电脑开机主机启动正常，但显示器无反应" class="headerlink" title="电脑开机主机启动正常，但显示器无反应"></a>电脑开机主机启动正常，但显示器无反应</h4><p> 这种问题可能是内存的问题，也可能是<strong><a href="https://baike.baidu.com/item/%E6%98%BE%E5%8D%A1" target="_blank" rel="external">显卡</a></strong>问题，下图就是显卡：目前主流显卡很多，<strong><a href="https://baike.baidu.com/item/amd/5905" target="_blank" rel="external">AMD</a></strong>的 RX 400、RX 500系列，<strong><a href="https://baike.baidu.com/item/NVIDIA" target="_blank" rel="external">Nvidia</a></strong>的 GTX 9 、GTX 10系列；</p>
+<p> <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1515576981498&amp;di=3cf8957e2472e59dc0faf49ac562102c&amp;imgtype=0&amp;src=http%3A%2F%2Fcms-bucket.nosdn.127.net%2Fcatchpic%2Fa%2Fa5%2Fa55f2694355a0bc74206fefab1ac6689.jpg%3FimageView%26thumbnail%3D550x0" alt="GTX 1080Ti"></p>
+<ul>
+<li>如果是NVIDIA的10系显卡，请不要使用不带芯片的VGA转接头，尽量使用HDMI线连接显示器；</li>
+<li>按照上个故障来排查；如不能解决下一条。</li>
+<li>使用核显，将独立显卡从主板中拆除，将原先插在独立显卡上的视频线接到主板上，如果无相应插头建议自行寻找转换接口，如能正常开机则问题出在显卡上，建议联系卖家；</li>
+</ul>
+<h4 id="电脑开机自动进入BIOS"><a href="#电脑开机自动进入BIOS" class="headerlink" title="电脑开机自动进入BIOS"></a>电脑开机自动进入<strong><a href="https://baike.baidu.com/item/bios" target="_blank" rel="external">BIOS</a></strong></h4><p>这种问题基本就是电脑的启动项设置不对造成的。</p>
+<ul>
+<li>进入电脑主板BIOS，进入启动设置：（没错的话叫 BOOT），选择自己系统所在的硬盘作为首选启动项，保存并退出。如不能解决下一条。</li>
+<li>如出系统盘外还有其他硬盘请拆除后开机，看看是否正常。</li>
+<li></li>
+</ul>
+<h4 id="电脑开机显示下面几张图："><a href="#电脑开机显示下面几张图：" class="headerlink" title="电脑开机显示下面几张图："></a>电脑开机显示下面几张图：</h4><h5 id="CPU-Fan-Error"><a href="#CPU-Fan-Error" class="headerlink" title="CPU Fan Error"></a>CPU Fan Error</h5><p>请尝试检查CPU散热风扇的接线柱，是否正确安装到了CPU_FAN位置，CPU_OPT安装的应该是副风扇（一体水冷的时候基本是水泵）</p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1515576479967&amp;di=b42187a73d3b1c0f31208fb41aabc14b&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.udaxia.com%2Fuploads%2Fallimg%2F140813%2F6-140Q3092UbP.png" alt="CPU Fan Error"></p>
+<h5 id="Please-enter-Setup-to-recover-BIOS-setting"><a href="#Please-enter-Setup-to-recover-BIOS-setting" class="headerlink" title="Please enter Setup to recover BIOS setting"></a>Please enter Setup to recover BIOS setting</h5><p>这个问题基本出现在上了年纪的电脑上，也就是是两年以上的电脑，原因就是主板电池没电了，造成了主板的设置不能正常保存，去附近的电脑店里面一个就OK了，5块钱吧。</p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1515580205230&amp;di=6d24f65914e8f61629558fa687e5dbf5&amp;imgtype=0&amp;src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F4ec2d5628535e5ddf67ce19770c6a7efce1b6221.jpg" alt=""></p>
+<h3 id="故障二：无法上网"><a href="#故障二：无法上网" class="headerlink" title="故障二：无法上网"></a>故障二：无法上网</h3><h4 id="网络标志显示红叉或者根本没有网络标志"><a href="#网络标志显示红叉或者根本没有网络标志" class="headerlink" title="网络标志显示红叉或者根本没有网络标志"></a>网络标志显示红叉或者根本没有网络标志</h4><p>这种问题基本就是<strong><a href="https://baike.baidu.com/item/%E7%BD%91%E5%8D%A1" target="_blank" rel="external">网卡</a></strong>没有启动导致的可能的原因就是驱动没装好</p>
+<ul>
+<li>去下载主板网卡在当前系统版本下的驱动，系统版本有32位（X86）和64位（X64）之分，请看清楚</li>
+</ul>
+<h4 id="能用部分聊天软件，就是不能打开网页"><a href="#能用部分聊天软件，就是不能打开网页" class="headerlink" title="能用部分聊天软件，就是不能打开网页"></a>能用部分聊天软件，就是不能打开网页</h4><p>基本<strong><a href="https://baike.baidu.com/item/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8/8079460" target="_blank" rel="external">DNS</a></strong>的问题没的跑了,需要修改<strong><a href="https://baike.baidu.com/item/IP%E5%9C%B0%E5%9D%80" target="_blank" rel="external">IP地址</a></strong></p>
+<ul>
+<li>修改本机当前ip配置。如何修改这个就要看系统版本了，不一样的版本入口不一样</li>
+<li>对于win7可以点击小电脑图标-&gt;打开网络与共享设置-&gt;然后左侧边栏更改适配器设置-&gt;找到目前在用的链接(本地连接或者是无线网络)-&gt;右键属性-&gt;选择ipV4-&gt;属性-&gt;勾选手动设置</li>
+<li>其他的例如win8  win8.1，win10 基本都一样，如果找不到那么就去搜索控制面板，然后进入网络与Internet</li>
+</ul>
+<h5 id="进入网络与共享中心"><a href="#进入网络与共享中心" class="headerlink" title="进入网络与共享中心"></a>进入网络与共享中心</h5><p><img src="http://upload-images.jianshu.io/upload_images/1519926-c458a540e41c463c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" alt="QQ20180111-103722.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-46b4de214a0061b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" alt="QQ20180111-103818.png"></p>
+<h5 id="进入网络适配器页面"><a href="#进入网络适配器页面" class="headerlink" title="进入网络适配器页面"></a>进入网络适配器页面</h5><p><img src="http://upload-images.jianshu.io/upload_images/1519926-128f1111350fb6f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20180111-103853.png"></p>
+<h5 id="进入连接属性"><a href="#进入连接属性" class="headerlink" title="进入连接属性"></a>进入连接属性</h5><p><img src="http://upload-images.jianshu.io/upload_images/1519926-bf88202bfb264a10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20180111-103930.png"></p>
+<h5 id="进入ipv4协议属性"><a href="#进入ipv4协议属性" class="headerlink" title="进入ipv4协议属性"></a>进入ipv4协议属性</h5><p><img src="http://upload-images.jianshu.io/upload_images/1519926-8a87072d2c962ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20180111-103950.png"></p>
+<h5 id="手动填写IP地址"><a href="#手动填写IP地址" class="headerlink" title="手动填写IP地址"></a>手动填写IP地址</h5><ul>
+<li>这里面的东西如何填写需要根据你的路由器来决定的，基本上家里的设置都是192.168.1.<em> (</em> 号填写100-254)</li>
+<li>子网掩码 基本都是255.255.255.0</li>
+<li>网关也是根据路由器来 192.168.1.1</li>
+<li>DNS 第一行也可以根据路由器来：192.168.1.1 或者 指定固定的DNS，比如114.114.114.114</li>
+<li>第二行随意</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-5060e67482d09ead.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20180111-103950.png"></p>
+<h5 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h5><p><img src="http://upload-images.jianshu.io/upload_images/1519926-dc1f84313fbcfe82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20180111-104009.png"></p>
+<p>如果上述方法不能解决建议重置网络服务</p>
+<h4 id="重置网络服务"><a href="#重置网络服务" class="headerlink" title="重置网络服务"></a>重置网络服务</h4><h5 id="进入命令行工具（管理员模式）"><a href="#进入命令行工具（管理员模式）" class="headerlink" title="*  进入命令行工具（管理员模式）"></a>*  进入命令行工具（管理员模式）</h5><h5 id="输入-netsh-winsock-reset-然后回车"><a href="#输入-netsh-winsock-reset-然后回车" class="headerlink" title="*  输入 netsh winsock reset 然后回车"></a>*  输入 netsh winsock reset 然后回车</h5><h5 id="完成之后重启"><a href="#完成之后重启" class="headerlink" title="*  完成之后重启"></a>*  完成之后重启</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创分享/" rel="tag"># 原创分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/03/Windows--如何使用PE安装官方ISO镜像/" rel="next" title="Windows--如何使用PE安装官方ISO镜像">
+                <i class="fa fa-chevron-left"></i> Windows--如何使用PE安装官方ISO镜像
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/11/Windows--如何修改IP地址/" rel="prev" title="Windows--如何修改IP地址">
+                Windows--如何修改IP地址 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#台式组装机简单故障的排查与清除"><span class="nav-number">1.</span> <span class="nav-text">台式组装机简单故障的排查与清除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#故障一：不能正常开机"><span class="nav-number">1.1.</span> <span class="nav-text">故障一：不能正常开机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#电脑开机，反复重启"><span class="nav-number">1.1.1.</span> <span class="nav-text">电脑开机，反复重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电脑开机主机启动正常，但显示器无反应"><span class="nav-number">1.1.2.</span> <span class="nav-text">电脑开机主机启动正常，但显示器无反应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电脑开机自动进入BIOS"><span class="nav-number">1.1.3.</span> <span class="nav-text">电脑开机自动进入BIOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电脑开机显示下面几张图："><span class="nav-number">1.1.4.</span> <span class="nav-text">电脑开机显示下面几张图：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-Fan-Error"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">CPU Fan Error</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Please-enter-Setup-to-recover-BIOS-setting"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">Please enter Setup to recover BIOS setting</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#故障二：无法上网"><span class="nav-number">1.2.</span> <span class="nav-text">故障二：无法上网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络标志显示红叉或者根本没有网络标志"><span class="nav-number">1.2.1.</span> <span class="nav-text">网络标志显示红叉或者根本没有网络标志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#能用部分聊天软件，就是不能打开网页"><span class="nav-number">1.2.2.</span> <span class="nav-text">能用部分聊天软件，就是不能打开网页</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进入网络与共享中心"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进入网络与共享中心</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进入网络适配器页面"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">进入网络适配器页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进入连接属性"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">进入连接属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进入ipv4协议属性"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">进入ipv4协议属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手动填写IP地址"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">手动填写IP地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">保存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重置网络服务"><span class="nav-number">1.2.3.</span> <span class="nav-text">重置网络服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进入命令行工具（管理员模式）"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">*  进入命令行工具（管理员模式）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入-netsh-winsock-reset-然后回车"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">*  输入 netsh winsock reset 然后回车</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#完成之后重启"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">*  完成之后重启</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

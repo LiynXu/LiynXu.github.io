@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原创分享," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面本文是博主鉴于当前任然后很大一部分电脑玩家经常为不会给爱机装系统而创作，本博主是一个精通电脑硬件性能以及软件使用的IT人士。 Windows的启动盘分为两类:(随便选择一种方法制作就OK了)">
+<meta name="keywords" content="原创分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows电脑U盘启动盘制作">
+<meta property="og:url" content="http://yoursite.com/2017/08/19/Windows--Make_PE_Boot_USB_Disk/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="写在前面本文是博主鉴于当前任然后很大一部分电脑玩家经常为不会给爱机装系统而创作，本博主是一个精通电脑硬件性能以及软件使用的IT人士。 Windows的启动盘分为两类:(随便选择一种方法制作就OK了)">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-71b4b684156f678d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-9691074f0f79ca5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-27efd7a6db8359e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-fd38b862f7230552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-06fbdf583167f922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-6075ee1c3335548a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-8154c6f201b5b365.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-0c502c9d714f8a0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-b1e53763dbca94b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-f40716ebcc930545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-994c67f773e5413b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-a605ae6618f9c97a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-59fb248b266fce9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-23dd964d7170ab3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:updated_time" content="2017-12-26T06:56:37.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows电脑U盘启动盘制作">
+<meta name="twitter:description" content="写在前面本文是博主鉴于当前任然后很大一部分电脑玩家经常为不会给爱机装系统而创作，本博主是一个精通电脑硬件性能以及软件使用的IT人士。 Windows的启动盘分为两类:(随便选择一种方法制作就OK了)">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1519926-71b4b684156f678d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/19/Windows--Make_PE_Boot_USB_Disk/"/>
+
+
+
+
+
+  <title>Windows电脑U盘启动盘制作 | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/19/Windows--Make_PE_Boot_USB_Disk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows电脑U盘启动盘制作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T21:39:00+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/19/Windows--Make_PE_Boot_USB_Disk/" class="leancloud_visitors" data-flag-title="Windows电脑U盘启动盘制作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文是博主鉴于当前任然后很大一部分电脑玩家经常为不会给爱机装系统而创作，本博主是一个精通电脑硬件性能以及软件使用的IT人士。</p>
+<p>Windows的启动盘分为两类:(随便选择<strong>一种</strong>方法制作就OK了)</p>
+ <a id="more"></a>
+<ul>
+<li><strong>普通BIOS启动的PE类</strong></li>
+<li><strong>UEFI启动的EFI类</strong></li>
+</ul>
+<p>无论是哪一类大家都不用担心，都有相对应的傻瓜式软件来帮我们完成，我们需要做的就是一下：</p>
+<ul>
+<li>找一个U盘，最好是空的（因为无论是哪一种制作方式都可能会格式化这个U盘）</li>
+<li>U盘的大小最好是8GB左右的（第一种的方式大小无所谓，主要是第二种的方式会占用大量空间）</li>
+<li>一台能联网的电脑（这个么有难度吧）</li>
+</ul>
+<h3 id="普通BIOS启动的PE类"><a href="#普通BIOS启动的PE类" class="headerlink" title="普通BIOS启动的PE类"></a>普通BIOS启动的PE类</h3><p>以下将简单介绍如何给Windows电脑制作一个<strong>普通BIOS启动的PE类</strong>U盘启动盘</p>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p><strong>下载U盘启动盘制作工具</strong><br>可以选的种类有很多个：老毛桃，U深度，大白菜，电脑店。。。。下面介绍的是<strong>电脑店</strong>。</p>
+<p>下载地址：<strong><a href="http://u.diannaodian.com/down" target="_blank" rel="external">http://u.diannaodian.com/down</a></strong></p>
+<p>进入如图页面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-71b4b684156f678d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819233452.png"></p>
+<p>点击<strong>下载</strong>：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-9691074f0f79ca5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819231746.png"></p>
+<p>推荐点击<strong>本地下载</strong>：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-27efd7a6db8359e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819231817.png"></p>
+<p>然后就是等待下载完毕。。。。。。</p>
+<p>在这个时候我们就可以开始对U盘做一些操作了(如果你的U盘不是空的话，如果里面没有东西，这一步可以跳过)，把U盘里面的所有东西都挪到电脑上（除了C盘的任何位置，只要你找的到就行）。</p>
+<p>OK下载完了，开始安装：<br>这个软件的安装很简单，就是单纯的吧这个下载的ZIP文件解压而已：我解压到了我的软件盘，盘符为D，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-fd38b862f7230552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819232452.png"></p>
+<p>然后就是插上U盘，这时软件上面的U盘选择项就会出现你的U盘名称：</p>
+<p>然后选择启动模式：（个人建议不要动保持<strong>USB-HDD</strong>模式）</p>
+<p>然后选择U盘格式：（个人建议<strong>NTFS</strong>，因为<strong>Fat32</strong>有着文件大小的限制，单个文件的大小不得超过<strong>4GB</strong>）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-06fbdf583167f922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819232534.png"></p>
+<p>都选择完了之后，那就点一下鼠标，点击<strong>全新制作</strong>：<br>接下来就是等了。。。等。。。<br>应该会很快<br>完成之后：点击<strong>模拟启动</strong>，选择<strong>BIOS</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-6075ee1c3335548a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ图片20170819233059.png"></p>
+<p>至此，U盘启动盘已经制作完成。</p>
+<h3 id="UEFI启动的EFI类"><a href="#UEFI启动的EFI类" class="headerlink" title="UEFI启动的EFI类"></a>UEFI启动的EFI类</h3><h4 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h4><p>下载<strong>软碟通</strong></p>
+<p>百度就有：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-8154c6f201b5b365.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234217.png"></p>
+<p>安装：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-0c502c9d714f8a0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234300.png"></p>
+<ul>
+<li>接受协议，下一步。。。</li>
+<li>注意改一下安装路径：（建议不要装在C盘，我的是在D盘）</li>
+<li>一直下一步，知道结束</li>
+</ul>
+<p> 启动 选择<strong>继续试用</strong>：</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1519926-b1e53763dbca94b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234411.png"></p>
+<p> 选择上方工具栏的<strong>文件</strong>–<strong>打开</strong>：（选择你的系统镜像）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-f40716ebcc930545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="Uploading QQ截图20170819234614_259660.png."></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-994c67f773e5413b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234614.png"></p>
+<p> 然后如图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-a605ae6618f9c97a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234634.png"></p>
+<p> 选择<strong>工具</strong>–<strong>写入磁盘镜像</strong>，插入U盘</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-59fb248b266fce9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234654.png"></p>
+<p> 点击<strong>写入</strong>：（没有合适的U盘 所以我这里是不能点的）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1519926-23dd964d7170ab3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="QQ截图20170819234711.png"></p>
+<h5 id="注意本类U盘启动盘只能以UEFI模式启动"><a href="#注意本类U盘启动盘只能以UEFI模式启动" class="headerlink" title="注意本类U盘启动盘只能以UEFI模式启动"></a><strong>注意本类U盘启动盘只能以UEFI模式启动</strong></h5><p> 请设置自己电脑的相关BIOS设置</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创分享/" rel="tag"># 原创分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/iOS自定义相机的实现/" rel="next" title="iOS自定义相机的实现">
+                <i class="fa fa-chevron-left"></i> iOS自定义相机的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/23/iOS-如何计算出今天是周几/" rel="prev" title="iOS--如何计算出今天是周几">
+                iOS--如何计算出今天是周几 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.qwop.cn" target="_blank" title="阿里云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      阿里云
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.cn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通BIOS启动的PE类"><span class="nav-number">1.1.</span> <span class="nav-text">普通BIOS启动的PE类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.1.</span> <span class="nav-text">准备工作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UEFI启动的EFI类"><span class="nav-number">1.2.</span> <span class="nav-text">UEFI启动的EFI类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意本类U盘启动盘只能以UEFI模式启动"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">注意本类U盘启动盘只能以UEFI模式启动</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

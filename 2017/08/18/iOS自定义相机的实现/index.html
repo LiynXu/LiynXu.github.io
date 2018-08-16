@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原创分享," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="iOS自定义相机的实现本文主要介绍iOS系统上的自定义相机的实现，其实并不难主要包含了，拍摄设备，输入端，输出端，以及抓取图像，保存图像的操作。">
+<meta name="keywords" content="原创分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS自定义相机的实现">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/iOS自定义相机的实现/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="iOS自定义相机的实现本文主要介绍iOS系统上的自定义相机的实现，其实并不难主要包含了，拍摄设备，输入端，输出端，以及抓取图像，保存图像的操作。">
+<meta property="og:image" content="http://img.blog.csdn.net/20161119182623474">
+<meta property="og:image" content="http://img.blog.csdn.net/20161119182645365">
+<meta property="og:updated_time" content="2017-12-26T06:57:31.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS自定义相机的实现">
+<meta name="twitter:description" content="iOS自定义相机的实现本文主要介绍iOS系统上的自定义相机的实现，其实并不难主要包含了，拍摄设备，输入端，输出端，以及抓取图像，保存图像的操作。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161119182623474">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/iOS自定义相机的实现/"/>
+
+
+
+
+
+  <title>iOS自定义相机的实现 | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS自定义相机的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS自定义相机的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T18:00:39+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/18/iOS自定义相机的实现/" class="leancloud_visitors" data-flag-title="iOS自定义相机的实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="iOS自定义相机的实现"><a href="#iOS自定义相机的实现" class="headerlink" title="iOS自定义相机的实现"></a>iOS自定义相机的实现</h3><p>本文主要介绍iOS系统上的自定义相机的实现，其实并不难主要包含了，拍摄设备，输入端，输出端，以及抓取图像，保存图像的操作。</p>
+ <a id="more"></a>
+<p>###简单介绍组要控件</p>
+<ul>
+<li>上方功能区<ul>
+<li>取消按钮</li>
+<li>闪光灯按钮</li>
+<li>相机切换按钮</li>
+</ul>
+</li>
+<li>下方功能区<ul>
+<li>拍照按钮</li>
+<li>重新拍照按钮</li>
+<li>选择照片按钮</li>
+</ul>
+</li>
+<li>图像展示视图</li>
+</ul>
+<h4 id="主要代码展示"><a href="#主要代码展示" class="headerlink" title="主要代码展示"></a>主要代码展示</h4><h5 id="头文件内容展示"><a href="#头文件内容展示" class="headerlink" title="头文件内容展示"></a>头文件内容展示</h5><ul>
+<li>定了一个block，用于传输照片信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">typedef void(^ImageBlock)(NSDictionary *imageDictionary);</div><div class="line">@interface CameraViewController : UIViewController</div><div class="line">@property (nonatomic, copy) ImageBlock imageblock;</div><div class="line">-(void)setImageblock:(void(^)(NSDictionary *imageDictionary))imageblock;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<h5 id="视图控件代码，逻辑代码展示"><a href="#视图控件代码，逻辑代码展示" class="headerlink" title="视图控件代码，逻辑代码展示"></a>视图控件代码，逻辑代码展示</h5><ul>
+<li>当前视图需要的主要空控件，为了方便操作全部定义为属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">@interface CameraViewController ()&lt;AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,CAAnimationDelegate&gt;</div><div class="line">//捕获设备，通常是前置摄像头，后置摄像头，麦克风（音频输入）</div><div class="line">@property(nonatomic)AVCaptureDevice *device;</div><div class="line">//AVCaptureDeviceInput 代表输入设备，他使用AVCaptureDevice 来初始化</div><div class="line">@property(nonatomic)AVCaptureDeviceInput *input;</div><div class="line">//当启动摄像头开始捕获输入</div><div class="line">@property(nonatomic)AVCaptureMetadataOutput *output;</div><div class="line">//输出</div><div class="line">@property (nonatomic)AVCaptureStillImageOutput *ImageOutPut;</div><div class="line">//session：由他把输入输出结合在一起，并开始启动捕获设备（摄像头）</div><div class="line">@property(nonatomic)AVCaptureSession *session;</div><div class="line">//图像预览层，实时显示捕获的图像</div><div class="line">@property(nonatomic)AVCaptureVideoPreviewLayer *previewLayer;</div><div class="line">//设备</div><div class="line">@property (nonatomic, strong)AVCaptureDevice *deveice;</div><div class="line">//拍照</div><div class="line">@property (nonatomic, strong) UIButton *PhotoButton;</div><div class="line">//闪光灯</div><div class="line">@property (nonatomic, strong) UIButton *flashButton;</div><div class="line">//取消</div><div class="line">@property (nonatomic, strong) UIButton *cancleButton;</div><div class="line">//切换摄像头</div><div class="line">@property (nonatomic, strong) UIButton *changeButton;</div><div class="line">//确定选择当前照片</div><div class="line">@property (nonatomic, strong) UIButton *selectButton;</div><div class="line">//重新拍照</div><div class="line">@property (nonatomic, strong) UIButton *reCamButton;</div><div class="line">//照片加载视图</div><div class="line">@property (nonatomic, strong) UIImageView *imageView;</div><div class="line">//对焦区域</div><div class="line">@property (nonatomic, strong) UIImageView *focusView;</div><div class="line">//上方功能区</div><div class="line">@property (nonatomic, strong) UIView *topView;</div><div class="line">//下方功能区</div><div class="line">@property (nonatomic, strong) UIView *bottomView;</div><div class="line">//闪光灯状态</div><div class="line">@property (nonatomic, assign) BOOL isflashOn;</div><div class="line">//拍到的照片</div><div class="line">@property (nonatomic, strong) UIImage *image;</div><div class="line">//照片的信息</div><div class="line">@property (nonatomic, strong) NSDictionary *imageDict;</div><div class="line">//是否可以拍照</div><div class="line">@property (nonatomic, assign) BOOL canCa;</div><div class="line">//闪光灯模式</div><div class="line">@property (nonatomic, assign) AVCaptureFlashMode flahMode;</div><div class="line">//前后摄像头</div><div class="line">@property (nonatomic, assign) AVCaptureDevicePosition cameraPosition;</div><div class="line">//模糊视图</div><div class="line">@property (nonatomic, strong) UIVisualEffectView *effectView;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<ul>
+<li>使用懒加载，减少主要函数中的代码，看起来更为清爽。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div></pre></td><td class="code"><pre><div class="line">@implementation CameraViewController</div><div class="line">#pragma mark - 更改摄像头</div><div class="line"></div><div class="line">-(UIVisualEffectView *)effectView&#123;</div><div class="line">    if (_effectView == nil) &#123;</div><div class="line">        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];</div><div class="line">        _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];</div><div class="line">        _effectView.frame = CGRectMake(0, 0, ScreenWidth(), ScreenHieght());</div><div class="line">        _effectView.alpha = 1;</div><div class="line">    &#125;</div><div class="line">    return _effectView;</div><div class="line">&#125;</div><div class="line"> #pragma mark - 更改闪光灯状态</div><div class="line">-(void)setIsflashOn:(BOOL)isflashOn&#123;</div><div class="line">    _isflashOn = isflashOn;</div><div class="line">    [[NSUserDefaults standardUserDefaults] setObject:@(_isflashOn) forKey:@&quot;flashMode&quot;];</div><div class="line">    if (_isflashOn) &#123;</div><div class="line">        [self.flashButton setBackgroundImage:[UIImage imageNamed:@&quot;flash_on&quot;] forState:UIControlStateNormal];</div><div class="line">    &#125;else&#123;</div><div class="line">        [self.flashButton setBackgroundImage:[UIImage imageNamed:@&quot;flash_off&quot;] forState:UIControlStateNormal];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">#pragma mark - 上方功能区</div><div class="line">-(UIView *)topView&#123;</div><div class="line">    if (!_topView ) &#123;</div><div class="line">        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth(), 50)];</div><div class="line">        _topView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.2];</div><div class="line">        [_topView addSubview:self.cancleButton];</div><div class="line">        [_topView addSubview:self.flashButton];</div><div class="line">        [_topView addSubview:self.changeButton];</div><div class="line">    &#125;</div><div class="line">    return _topView;</div><div class="line">&#125;</div><div class="line">#pragma mark - 取消</div><div class="line">-(UIButton *)cancleButton&#123;</div><div class="line">    if (_cancleButton == nil) &#123;</div><div class="line">        _cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _cancleButton.frame = CGRectMake(20, 10, 60, 30);</div><div class="line">        [_cancleButton setTitle:@&quot;取消&quot; forState:UIControlStateNormal];</div><div class="line">        [_cancleButton addTarget:self action:@selector(cancle) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    &#125;</div><div class="line">    return  _cancleButton ;</div><div class="line">&#125;</div><div class="line">#pragma mark - 闪光灯</div><div class="line">-(UIButton *)flashButton&#123;</div><div class="line">    if (_flashButton == nil) &#123;</div><div class="line">        _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _flashButton.frame = CGRectMake((ScreenWidth()-30)/2.0, 10, 30, 30);</div><div class="line">        [_flashButton addTarget:self action:@selector(FlashOn) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    &#125;</div><div class="line">    return  _flashButton;</div><div class="line">&#125;</div><div class="line">#pragma mark - 切换摄像头</div><div class="line">-(UIButton *)changeButton&#123;</div><div class="line">    if (_changeButton == nil) &#123;</div><div class="line">        _changeButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _changeButton.frame = CGRectMake(ScreenWidth()-40, 10, 30, 30);</div><div class="line">        [_changeButton setBackgroundImage:[UIImage imageNamed:@&quot;cam&quot;] forState:UIControlStateNormal];</div><div class="line">        [_changeButton addTarget:self action:@selector(changeCamera) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    &#125;</div><div class="line">    return  _changeButton;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#pragma mark - 下方功能区</div><div class="line"></div><div class="line">-(UIView *)bottomView&#123;</div><div class="line">    if (!_bottomView) &#123;</div><div class="line">        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHieght()-80, ScreenWidth(), 80)];</div><div class="line">        _bottomView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];</div><div class="line">        [_bottomView addSubview:self.reCamButton];</div><div class="line">        [_bottomView addSubview:self.PhotoButton];</div><div class="line">        [_bottomView addSubview:self.selectButton];</div><div class="line">    &#125;</div><div class="line">    return _bottomView;</div><div class="line">&#125;</div><div class="line">-(UIButton *)reCamButton&#123;</div><div class="line">    if (_reCamButton == nil) &#123;</div><div class="line">        _reCamButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _reCamButton.frame = CGRectMake(40, 25, 80, 30);</div><div class="line">        [_reCamButton addTarget:self action:@selector(reCam) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">        [_reCamButton setTitle:@&quot;重新拍照&quot; forState:UIControlStateNormal];</div><div class="line">        [_reCamButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];</div><div class="line">        _reCamButton.alpha = 0;</div><div class="line">    &#125;</div><div class="line">    return _reCamButton;</div><div class="line">&#125;</div><div class="line">-(UIButton *)PhotoButton&#123;</div><div class="line">    if (_PhotoButton == nil) &#123;</div><div class="line">        _PhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _PhotoButton.frame = CGRectMake(ScreenWidth()/2.0-30, 10, 60, 60);</div><div class="line">        [_PhotoButton setImage:[UIImage imageNamed:@&quot;photograph&quot;] forState: UIControlStateNormal];</div><div class="line">        [_PhotoButton setImage:[UIImage imageNamed:@&quot;photograph_Select&quot;] forState:UIControlStateNormal];</div><div class="line">        [_PhotoButton addTarget:self action:@selector(shutterCamera) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    &#125;</div><div class="line">    return _PhotoButton;</div><div class="line">&#125;</div><div class="line">-(UIButton *)selectButton&#123;</div><div class="line">    if (_selectButton == nil) &#123;</div><div class="line">        _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">        _selectButton.frame = CGRectMake(ScreenWidth()-120, 25, 80, 30);</div><div class="line">        [_selectButton addTarget:self action:@selector(selectImage) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">        [_selectButton setTitle:@&quot;选择照片&quot; forState:UIControlStateNormal];</div><div class="line">        [_selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];</div><div class="line">        _selectButton.alpha = 0;</div><div class="line">    &#125;</div><div class="line">    return _selectButton;</div><div class="line">&#125;</div><div class="line">#pragma mark - 加载照片的视图</div><div class="line">-(UIImageView *)imageView&#123;</div><div class="line">    if (_imageView == nil) &#123;</div><div class="line">        _imageView = [[UIImageView alloc]initWithFrame:self.previewLayer.frame];</div><div class="line">        _imageView.layer.masksToBounds = YES;</div><div class="line">        _imageView.image = _image;</div><div class="line">    &#125;</div><div class="line">    return _imageView;</div><div class="line">&#125;</div><div class="line">#pragma mark - 对焦区域</div><div class="line">-(UIImageView *)focusView&#123;</div><div class="line">    if (_focusView == nil) &#123;</div><div class="line">        _focusView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];</div><div class="line">        _focusView.backgroundColor = [UIColor clearColor];</div><div class="line">        _focusView.image = [UIImage imageNamed:@&quot;foucs80pt&quot;];</div><div class="line">    &#125;</div><div class="line">    return _focusView;</div><div class="line">&#125;</div><div class="line">#pragma mark - 使用self.session，初始化预览层，self.session负责驱动input进行信息的采集，layer负责把图像渲染显示</div><div class="line">-(AVCaptureVideoPreviewLayer *)previewLayer&#123;</div><div class="line">    if (_previewLayer == nil) &#123;</div><div class="line">        _previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:self.session];</div><div class="line">        _previewLayer.frame = CGRectMake(0, 0, ScreenWidth(), ScreenHieght());</div><div class="line">        _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;</div><div class="line">    &#125;</div><div class="line">    return  _previewLayer;</div><div class="line">&#125;</div><div class="line">-(AVCaptureStillImageOutput *)ImageOutPut&#123;</div><div class="line">    if (_ImageOutPut == nil) &#123;</div><div class="line">        _ImageOutPut = [[AVCaptureStillImageOutput alloc] init];</div><div class="line">    &#125;</div><div class="line">    return _ImageOutPut;</div><div class="line">&#125;</div><div class="line">#pragma mark - 初始化输入</div><div class="line">-(AVCaptureDeviceInput *)input&#123;</div><div class="line">    if (_input == nil) &#123;</div><div class="line">        </div><div class="line">        _input = [[AVCaptureDeviceInput alloc]initWithDevice:self.device error:nil];</div><div class="line">    &#125;</div><div class="line">    return _input;</div><div class="line">&#125;</div><div class="line">#pragma mark - 初始化输出</div><div class="line">-(AVCaptureMetadataOutput *)output&#123;</div><div class="line">    if (_output == nil) &#123;</div><div class="line">        </div><div class="line">        _output = [[AVCaptureMetadataOutput alloc]init];</div><div class="line">    &#125;</div><div class="line">    return  _output;</div><div class="line">&#125;</div><div class="line">#pragma mark - 使用AVMediaTypeVideo 指明self.device代表视频，默认使用后置摄像头进行初始化</div><div class="line">-(AVCaptureDevice *)device&#123;</div><div class="line">    if (_device == nil) &#123;</div><div class="line">        </div><div class="line">        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</div><div class="line">    &#125;</div><div class="line">    return _device;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="主要逻辑代码"><a href="#主要逻辑代码" class="headerlink" title="主要逻辑代码"></a>主要逻辑代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 当前视图控制器的初始化</div><div class="line">- (instancetype)init</div><div class="line">&#123;</div><div class="line">    self = [super init];</div><div class="line">    if (self) &#123;</div><div class="line">        _canCa = [self canUserCamear];</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(void)setImageblock:(void (^)(NSDictionary *))imageblock&#123;</div><div class="line">    _imageblock = imageblock;</div><div class="line">&#125;</div><div class="line">#pragma mark - 检查相机权限</div><div class="line">- (BOOL)canUserCamear&#123;</div><div class="line">    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];</div><div class="line">    if (authStatus == AVAuthorizationStatusDenied) &#123;</div><div class="line">        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@&quot;请打开相机权限&quot; message:@&quot;设置-隐私-相机&quot; delegate:self cancelButtonTitle:@&quot;确定&quot; otherButtonTitles:@&quot;取消&quot;, nil];</div><div class="line">        alertView.tag = 100;</div><div class="line">        [alertView show];</div><div class="line">        return NO;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">        return YES;</div><div class="line">    &#125;</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line">#pragma mark - 视图加载</div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    self.view.backgroundColor = [UIColor clearColor];</div><div class="line">    if (_canCa) &#123;</div><div class="line">        [self customCamera];</div><div class="line">        [self customUI];</div><div class="line">        [self FlashOn];</div><div class="line">    &#125;else&#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    // Do any additional setup after loading the view, typically from a nib.</div><div class="line">&#125;</div><div class="line">#pragma mark - 自定义视图</div><div class="line">- (void)customUI&#123;</div><div class="line">    [self.view addSubview:self.topView];</div><div class="line">    [self.view addSubview:self.bottomView];</div><div class="line">    [self.view addSubview:self.focusView];</div><div class="line">    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(focusGesture:)];</div><div class="line">    [self.view addGestureRecognizer:tapGesture];</div><div class="line">    </div><div class="line">&#125;</div><div class="line">#pragma mark - 自定义相机</div><div class="line">- (void)customCamera&#123;</div><div class="line">    //生成会话，用来结合输入输出</div><div class="line">    self.session = [[AVCaptureSession alloc]init];</div><div class="line">    if ([self.session canSetSessionPreset:AVCaptureSessionPresetPhoto]) &#123;</div><div class="line">        self.session.sessionPreset = AVCaptureSessionPresetPhoto;</div><div class="line">    &#125;</div><div class="line">    if ([self.session canAddInput:self.input]) &#123;</div><div class="line">        [self.session addInput:self.input];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ([self.session canAddOutput:self.ImageOutPut]) &#123;</div><div class="line">        [self.session addOutput:self.ImageOutPut];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [self.view.layer addSublayer:self.previewLayer];</div><div class="line">    </div><div class="line">    //开始启动</div><div class="line">    [self.session startRunning];</div><div class="line">    if ([self.device lockForConfiguration:nil]) &#123;</div><div class="line">        if ([self.device isFlashModeSupported:AVCaptureFlashModeAuto]) &#123;</div><div class="line">            [self.device setFlashMode:AVCaptureFlashModeAuto];</div><div class="line">        &#125;</div><div class="line">        //自动白平衡</div><div class="line">        if ([self.device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeAutoWhiteBalance]) &#123;</div><div class="line">            [self.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeAutoWhiteBalance];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        [self.device unlockForConfiguration];</div><div class="line">    &#125;</div><div class="line">    [self focusAtPoint:self.view.center];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>*闪光灯</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#pragma 闪光灯</div><div class="line">- (void)FlashOn&#123;</div><div class="line">    if ([self.device lockForConfiguration:nil]) &#123;</div><div class="line">        if (self.isflashOn) &#123;</div><div class="line">            if ([self.device isFlashModeSupported:AVCaptureFlashModeOff]) &#123;</div><div class="line">                [self.device setFlashMode:AVCaptureFlashModeOff];</div><div class="line">                self.isflashOn = NO;</div><div class="line">                //[self.flashButton setTitle:@&quot;关&quot; forState:UIControlStateNormal];</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            if ([self.device isFlashModeSupported:AVCaptureFlashModeAuto]) &#123;</div><div class="line">                [self.device setFlashMode:AVCaptureFlashModeAuto];</div><div class="line">                self.isflashOn = YES;</div><div class="line">                //[self.flashButton setTitle:@&quot;开&quot; forState:UIControlStateNormal];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        [self.device unlockForConfiguration];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>双摄像头切换，切换时使用高斯模糊对试图进行处理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 相机切换</div><div class="line">- (void)changeCamera&#123;</div><div class="line">    NSUInteger cameraCount = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] count];</div><div class="line">    if (cameraCount &gt; 1) &#123;</div><div class="line">        self.changeButton.userInteractionEnabled = NO;</div><div class="line">        [self cutoff];</div><div class="line">        NSError *error;</div><div class="line">        </div><div class="line">        CATransition *animation = [CATransition animation];</div><div class="line">        animation.duration = 1;</div><div class="line">        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</div><div class="line">        animation.type = @&quot;oglFlip&quot;;</div><div class="line">        animation.delegate = self;</div><div class="line">        AVCaptureDevice *newCamera = nil;</div><div class="line">        AVCaptureDeviceInput *newInput = nil;</div><div class="line">        AVCaptureDevicePosition position = [[self.input device] position];</div><div class="line">        if (position == AVCaptureDevicePositionFront)&#123;</div><div class="line">            newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];</div><div class="line">            animation.subtype = kCATransitionFromLeft;</div><div class="line">            self.cameraPosition = AVCaptureDevicePositionBack;</div><div class="line">        &#125;else &#123;</div><div class="line">            newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];</div><div class="line">            animation.subtype = kCATransitionFromRight;</div><div class="line">            self.cameraPosition = AVCaptureDevicePositionFront;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];</div><div class="line">        [self.previewLayer addAnimation:animation forKey:nil];</div><div class="line">        /*</div><div class="line">         高斯模糊</div><div class="line">         */</div><div class="line">        </div><div class="line">        [self.imageView addSubview:self.effectView];</div><div class="line">        [self.view insertSubview:self.imageView belowSubview:self.topView];</div><div class="line">        //</div><div class="line">        if (newInput != nil) &#123;</div><div class="line">            [self.session beginConfiguration];</div><div class="line">            [self.session removeInput:self.input];</div><div class="line">            if ([self.session canAddInput:newInput]) &#123;</div><div class="line">                [self.session addInput:newInput];</div><div class="line">                self.input = newInput;</div><div class="line"></div><div class="line">            &#125; else &#123;</div><div class="line">                [self.session addInput:self.input];</div><div class="line">            &#125;</div><div class="line">            [self.session commitConfiguration];</div><div class="line">            </div><div class="line">        &#125; else if (error) &#123;</div><div class="line">            NSLog(@&quot;toggle carema failed, error = %@&quot;, error);</div><div class="line">        &#125;</div><div class="line">        //[self.session startRunning];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position&#123;</div><div class="line">    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];</div><div class="line">    for ( AVCaptureDevice *device in devices )</div><div class="line">        if ( device.position == position ) return device;</div><div class="line">    return nil;</div><div class="line">&#125;</div><div class="line">-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag&#123;</div><div class="line">    self.changeButton.userInteractionEnabled = YES;</div><div class="line">    [self.effectView removeFromSuperview];</div><div class="line">    [self.imageView removeFromSuperview];</div><div class="line">    if (self.cameraPosition == AVCaptureDevicePositionFront) &#123;</div><div class="line">        self.flashButton.alpha = 0;</div><div class="line">    &#125;else if (self.cameraPosition == AVCaptureDevicePositionBack)&#123;</div><div class="line">        self.flashButton.alpha = 1;</div><div class="line">    &#125;</div><div class="line">    [self.session startRunning];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>摄像头对焦</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 聚焦</div><div class="line">- (void)focusGesture:(UITapGestureRecognizer*)gesture&#123;</div><div class="line">    CGPoint point = [gesture locationInView:gesture.view];</div><div class="line">    [self focusAtPoint:point];</div><div class="line">&#125;</div><div class="line">- (void)focusAtPoint:(CGPoint)point&#123;</div><div class="line">    CGSize size = self.view.bounds.size;</div><div class="line">    CGPoint focusPoint = CGPointMake( point.y /size.height ,1-point.x/size.width );</div><div class="line">    NSError *error;</div><div class="line">    if ([self.device lockForConfiguration:&amp;error]) &#123;</div><div class="line">        </div><div class="line">        if ([self.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) &#123;</div><div class="line">            [self.device setFocusPointOfInterest:focusPoint];</div><div class="line">            [self.device setFocusMode:AVCaptureFocusModeAutoFocus];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        if ([self.device isExposureModeSupported:AVCaptureExposureModeAutoExpose ]) &#123;</div><div class="line">            [self.device setExposurePointOfInterest:focusPoint];</div><div class="line">            [self.device setExposureMode:AVCaptureExposureModeAutoExpose];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        [self.device unlockForConfiguration];</div><div class="line">        self.focusView.center = point;</div><div class="line">        </div><div class="line">        //[self startFocusAnimation];</div><div class="line">        self.focusView.alpha = 1;</div><div class="line">        [UIView animateWithDuration:0.2 animations:^&#123;</div><div class="line">            self.focusView.transform = CGAffineTransformMakeScale(1.25f, 1.25f);</div><div class="line">        &#125; completion:^(BOOL finished) &#123;</div><div class="line">            [UIView animateWithDuration:0.3 animations:^&#123;</div><div class="line">                self.focusView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);</div><div class="line">            &#125; completion:^(BOOL finished) &#123;</div><div class="line">                [self hiddenFocusAnimation];</div><div class="line">            &#125;];</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="主要功能按钮-拍照按钮"><a href="#主要功能按钮-拍照按钮" class="headerlink" title="主要功能按钮 拍照按钮"></a>主要功能按钮 拍照按钮</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 拍照</div><div class="line">- (void)shutterCamera</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    AVCaptureConnection * videoConnection = [self.ImageOutPut connectionWithMediaType:AVMediaTypeVideo];</div><div class="line">    if (!videoConnection) &#123;</div><div class="line">        NSLog(@&quot;take photo failed!&quot;);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [self.ImageOutPut captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) &#123;</div><div class="line">        if (imageDataSampleBuffer == NULL) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];</div><div class="line">        self.image = [UIImage imageWithData:imageData];</div><div class="line">        self.imageDict = @&#123;@&quot;image&quot;:self.image,@&quot;info&quot;:@&#123;@&quot;PHImageFileUTIKey&quot;:@&quot;.jpeg&quot;&#125;&#125;;</div><div class="line">        [self.session stopRunning];</div><div class="line">        //[self.view insertSubview:self.imageView belowSubview:self.PhotoButton];</div><div class="line">        [self.view insertSubview:self.imageView aboveSubview:self.topView];</div><div class="line">        NSLog(@&quot;image size = %@&quot;,NSStringFromCGSize(self.image.size));</div><div class="line">        self.topView.alpha = 0;</div><div class="line">        self.PhotoButton.alpha = 0;</div><div class="line">        self.reCamButton.alpha = 1;</div><div class="line">        self.selectButton.alpha = 1;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>保存至相册</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#pragma - 保存至相册</div><div class="line">- (void)saveImageToPhotoAlbum:(UIImage*)savedImage</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    UIImageWriteToSavedPhotosAlbum(savedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);</div><div class="line">    </div><div class="line">&#125;</div><div class="line">// 指定回调方法</div><div class="line"></div><div class="line">- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo&#123;</div><div class="line">    if(error != NULL)&#123;</div><div class="line">        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;保存图片结果提示&quot;</div><div class="line">                                                        message:@&quot;保存图片失败&quot;</div><div class="line">                                                       delegate:self</div><div class="line">                                              cancelButtonTitle:@&quot;确定&quot;</div><div class="line">                                              otherButtonTitles:nil];</div><div class="line">        [alert show];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>取消 返回上级</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 取消 返回上级</div><div class="line">-(void)cancle&#123;</div><div class="line">    [self.imageView removeFromSuperview];</div><div class="line">    [self.session stopRunning];</div><div class="line">    [self.navigationController popViewControllerAnimated:YES];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex&#123;</div><div class="line">    if (buttonIndex == 0 &amp;&amp; alertView.tag == 100) &#123;</div><div class="line">        </div><div class="line">        NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];</div><div class="line">        </div><div class="line">        if([[UIApplication sharedApplication] canOpenURL:url]) &#123;</div><div class="line">            </div><div class="line">            [[UIApplication sharedApplication] openURL:url];</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>重新拍照</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 重新拍照</div><div class="line">- (void)reCam&#123;</div><div class="line">    self.imageView.image = nil;</div><div class="line">    [self.imageView removeFromSuperview];</div><div class="line">    [self.session startRunning];</div><div class="line">    self.topView.alpha = 1;</div><div class="line">    self.PhotoButton.alpha = 1;</div><div class="line">    self.reCamButton.alpha = 0;</div><div class="line">    self.selectButton.alpha = 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>选择照片 返回上级</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 选择照片 返回上级</div><div class="line">- (void)selectImage&#123;</div><div class="line">    [self saveImageToPhotoAlbum:self.image];</div><div class="line">    self.imageblock(self.image);</div><div class="line">    [self.navigationController popViewControllerAnimated:YES];</div><div class="line">&#125;</div><div class="line">-(void)viewDidDisappear:(BOOL)animated&#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)focusDidFinsh&#123;</div><div class="line">    self.focusView.hidden = YES;</div><div class="line">    self.focusView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);</div><div class="line">    //self.focusView.transform=CGAffineTransformMakeScale(0.7f, 0.7f);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="对焦框动画"><a href="#对焦框动画" class="headerlink" title="对焦框动画"></a>对焦框动画</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">- (void)startFocusAnimation&#123;</div><div class="line">    self.focusView.hidden = NO;</div><div class="line">    self.focusView.transform = CGAffineTransformMakeScale(1.25f, 1.25f);//将要显示的view按照正常比例显示出来</div><div class="line">    [UIView beginAnimations:nil context:UIGraphicsGetCurrentContext()];</div><div class="line">    //[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];  //InOut 表示进入和出去时都启动动画</div><div class="line">    //[UIView setAnimationWillStartSelector:@selector(hiddenFoucsView)];</div><div class="line">    [UIView setAnimationDidStopSelector:@selector(hiddenFocusAnimation)];</div><div class="line">    [UIView setAnimationDuration:0.5f];//动画时间</div><div class="line">    self.focusView.transform = CGAffineTransformIdentity;//先让要显示的view最小直至消失</div><div class="line">    [UIView commitAnimations]; //启动动画</div><div class="line">    //相反如果想要从小到大的显示效果，则将比例调换</div><div class="line">    </div><div class="line">&#125;</div><div class="line">- (void)hiddenFocusAnimation&#123;</div><div class="line">    [UIView beginAnimations:nil context:UIGraphicsGetCurrentContext()];</div><div class="line">    //NSDate *DATE = [NSDate date];</div><div class="line">    //[UIView setAnimationStartDate:[NSDate date]];</div><div class="line">    [UIView setAnimationDelay:3];</div><div class="line">    self.focusView.alpha = 0;</div><div class="line">    [UIView setAnimationDuration:0.5f];//动画时间</div><div class="line">    [UIView commitAnimations];</div><div class="line">    </div><div class="line">&#125;</div><div class="line">- (void)hiddenFoucsView&#123;</div><div class="line">    self.focusView.alpha = !self.focusView.alpha;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20161119182623474" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20161119182645365" alt="这里写图片描述"></p>
+<h4 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h4><ul>
+<li>第一次自定义一个相机，代码写的可能不太好理解。</li>
+<li>这个项目在码云的git库上有，地址为<a href="https://git.oschina.net/LiynXu/PhotoDemo.git。" target="_blank" rel="external">https://git.oschina.net/LiynXu/PhotoDemo.git。</a> </li>
+<li>如果有任何意见或者建议，或者发现bug(应该是有的),请移步值git库下给予指导，3Q。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创分享/" rel="tag"># 原创分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/斐讯K2刷华硕固件/" rel="next" title="斐讯K2刷华硕固件">
+                <i class="fa fa-chevron-left"></i> 斐讯K2刷华硕固件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/19/Windows--Make_PE_Boot_USB_Disk/" rel="prev" title="Windows电脑U盘启动盘制作">
+                Windows电脑U盘启动盘制作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.qwop.cn" target="_blank" title="阿里云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      阿里云
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.cn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS自定义相机的实现"><span class="nav-number">1.</span> <span class="nav-text">iOS自定义相机的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要代码展示"><span class="nav-number">1.1.</span> <span class="nav-text">主要代码展示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#头文件内容展示"><span class="nav-number">1.1.1.</span> <span class="nav-text">头文件内容展示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#视图控件代码，逻辑代码展示"><span class="nav-number">1.1.2.</span> <span class="nav-text">视图控件代码，逻辑代码展示</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要逻辑代码"><span class="nav-number">1.2.</span> <span class="nav-text">主要逻辑代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要功能按钮-拍照按钮"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要功能按钮 拍照按钮</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对焦框动画"><span class="nav-number">1.2.2.</span> <span class="nav-text">对焦框动画</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写在最后"><span class="nav-number">1.3.</span> <span class="nav-text">写在最后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

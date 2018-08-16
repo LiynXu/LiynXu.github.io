@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原创分享," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="由于本人在工作中经常会进行网络请求，实在是不想一直写那段请求代码，就自己封装了一个LiynNet类。其中使用代理完成方法回调。">
+<meta name="keywords" content="原创分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单封装AFNetworking">
+<meta property="og:url" content="http://yoursite.com/2017/07/14/iOS--Custom_AFNetworking/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="由于本人在工作中经常会进行网络请求，实在是不想一直写那段请求代码，就自己封装了一个LiynNet类。其中使用代理完成方法回调。">
+<meta property="og:updated_time" content="2017-12-26T07:01:00.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单封装AFNetworking">
+<meta name="twitter:description" content="由于本人在工作中经常会进行网络请求，实在是不想一直写那段请求代码，就自己封装了一个LiynNet类。其中使用代理完成方法回调。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/14/iOS--Custom_AFNetworking/"/>
+
+
+
+
+
+  <title>简单封装AFNetworking | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/iOS--Custom_AFNetworking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单封装AFNetworking</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T17:47:14+08:00">
+                2017-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/14/iOS--Custom_AFNetworking/" class="leancloud_visitors" data-flag-title="简单封装AFNetworking">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于本人在工作中经常会进行网络请求，实在是不想一直写那段请求代码，就自己封装了一个LiynNet类。其中使用代理完成方法回调。</p>
+ <a id="more"></a>
+<p>这里面涉及到了GET/POST方法。<br>废话不多说直接上代码</p>
+<h2 id="下面是-h文件的内容"><a href="#下面是-h文件的内容" class="headerlink" title="下面是.h文件的内容:"></a><strong>下面是.h文件的内容:</strong></h2><p><strong>代理回调协议方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@protocol LiynNetDelegate &lt;NSObject&gt;</div><div class="line">- (void)netFinsh:(id)object;</div><div class="line">- (void)netError:(id)errorMsg;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>这里只有一个属性delegate，用于建立代理关系；<br>这里向外暴露了五个方法，其中第一个类方法用来初始化一个网络请求类的实例化对象，这个对象是一个单例对象，因为网络请求对象，不存储数据，只作为一个单纯的工具类，所以这个对象只需要存在一个就可以。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@interface LiynNet : NSObject</div><div class="line">@property (nonatomic, weak) id&lt;LiynNetDelegate&gt; delegate;</div><div class="line">#pragma mark: method</div><div class="line">+ (LiynNet *)defaultNet;</div><div class="line">- (void)uploadPOST:(NSString *)URLString Parameters:(id)parameters UploadDictionary:(NSDictionary*)uploadInfo;</div><div class="line">- (void)POST:(NSString *)URLString Parameters:(id)parameters;</div><div class="line">- (void)GET:(NSString *)URLString Parameters:(id)parameters;</div><div class="line">- (void)GETPic:(NSString *)URLString Parameters:(id)parameters Path:(NSString *)path;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<h2 id="下面是-m文件的内容"><a href="#下面是-m文件的内容" class="headerlink" title="下面是.m文件的内容"></a><strong>下面是.m文件的内容</strong></h2><p><strong>创建单例对象</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+(LiynNet *)defaultNet&#123;</div><div class="line">    static LiynNet *net = nil;</div><div class="line">    if (net == nil) &#123;</div><div class="line">        net = [[LiynNet alloc] init];</div><div class="line">        net.manager = [AFHTTPSessionManager manager];</div><div class="line">        net.manager.responseSerializer = [AFHTTPResponseSerializer serializer];</div><div class="line">    &#125;</div><div class="line">    return net;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="以下是网络请求"><a href="#以下是网络请求" class="headerlink" title="以下是网络请求"></a>以下是网络请求</h2><p>在这里我就想了定制，因为有时候需要判断返回数据的类型，例如：当一个页面进行多种数据请求时，代理方法只有一个，那么我们就需要一个标记变量来区别这次返回的数据类型是什么。<br>所以这里的parameters字典里需要一个字段msgType来区别。</p>
+<h3 id="一般POST下载请求"><a href="#一般POST下载请求" class="headerlink" title="一般POST下载请求"></a><strong>一般POST下载请求</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)POST:(NSString *)URLString Parameters:(id)parameters&#123;</div><div class="line">    NSString *msgType = parameters[@&quot;msgType&quot;];</div><div class="line">    NSLog(@&quot;&#123;\nmethod:POST \nURL:%@  \nParameters:%@&quot;,URLString,parameters);</div><div class="line">    [self.manager POST:URLString parameters:parameters[@&quot;msg&quot;] progress:^(NSProgress * _Nonnull uploadProgress) &#123;</div><div class="line">        </div><div class="line">    &#125; success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">        [self success:@&#123;@&quot;msgType&quot;:msgType,@&quot;msg&quot;:responseObject&#125;];</div><div class="line">    &#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">        [self failure:@&#123;@&quot;msgType&quot;:msgType,@&quot;error&quot;:error&#125;];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="一般的GET下载请求"><a href="#一般的GET下载请求" class="headerlink" title="一般的GET下载请求"></a><strong>一般的GET下载请求</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)GET:(NSString *)URLString Parameters:(id)parameters&#123;</div><div class="line">    NSString *msgType = parameters[@&quot;msgType&quot;];</div><div class="line">    NSLog(@&quot;method:GET URL:%@  Parameters:%@&quot;,URLString,parameters);</div><div class="line">    [self.manager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) &#123;</div><div class="line">        </div><div class="line">    &#125; success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">        [self success:responseObject];</div><div class="line">    &#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">        [self failure:@&#123;@&quot;msgType&quot;:msgType,@&quot;error&quot;:error&#125;];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="一般的POST上传请求"><a href="#一般的POST上传请求" class="headerlink" title="一般的POST上传请求"></a><strong>一般的POST上传请求</strong></h3><p>注意上传的字段是服务器给定的，传入的字典uploadInfo内@”uploadParameter”对应的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">- (void)uploadPOST:(NSString *)URLString Parameters:(id)parameters UploadDictionary:(NSDictionary*)uploadInfo&#123;</div><div class="line">    NSString *msgType = parameters[@&quot;msgType&quot;];</div><div class="line">    NSLog(@&quot;&#123;\nmethod:POST \nURL:%@  \nParametersCid:%@&quot;,URLString,parameters[@&quot;msg&quot;]);</div><div class="line">    NSDictionary *dict = parameters[@&quot;msg&quot;];</div><div class="line">    [self.manager POST: URLString parameters:dict constructingBodyWithBlock:^(id  _Nonnull formData) &#123;</div><div class="line">        NSData *rightData = UIImageJPEGRepresentation(uploadInfo[@&quot;image&quot;], 0.7);</div><div class="line">        [formData appendPartWithFileData:rightData</div><div class="line">                                    name: uploadInfo[@&quot;uploadParameter&quot;]</div><div class="line">                                fileName:@&quot;IDRight.png&quot;</div><div class="line">                                mimeType:@&quot;image/jpeg&quot;];</div><div class="line">    &#125; progress:^(NSProgress * _Nonnull uploadProgress) &#123;</div><div class="line">        </div><div class="line">        NSLog(@&quot;%f&quot;,1.0 * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount);</div><div class="line">        </div><div class="line">    &#125; success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) &#123;</div><div class="line">        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject</div><div class="line">                                                             options:NSJSONReadingMutableContainers</div><div class="line">                                                               error:nil];</div><div class="line">        [self success:@&#123;@&quot;msgType&quot;:msgType,@&quot;msg&quot;:dict&#125;];</div><div class="line">    &#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</div><div class="line">        [self failure:@&#123;@&quot;msgType&quot;:msgType,@&quot;error&quot;:error&#125;];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="两个私有方法"><a href="#两个私有方法" class="headerlink" title="两个私有方法"></a><strong>两个私有方法</strong></h3><h4 id="请求数据成功"><a href="#请求数据成功" class="headerlink" title="请求数据成功"></a><strong>请求数据成功</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)success:(id)responseObject&#123;</div><div class="line">    if (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(netFinsh:)]) &#123;</div><div class="line">        [_delegate netFinsh:responseObject];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="请求数据失败"><a href="#请求数据失败" class="headerlink" title="请求数据失败"></a><strong>请求数据失败</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)failure:(id)error&#123;</div><div class="line">    if (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(netError:)]) &#123;</div><div class="line">        [_delegate netError:error];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个类是基于AFNetworking的，所以在使用的时候必须要先倒入AFNetworking的第三方库，建议使用CocoaPods来导入，如果有人不会使用的可以自行百度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod &apos;AFNetworking&apos;, &apos;~&gt; 3.1.0&apos;</div></pre></td></tr></table></figure></p>
+<p>首先在使用的类里遵循协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;LiynNetDelegate&gt;</div></pre></td></tr></table></figure>
+<p>声明一个全局的LiynNet类的对象（这个全局只是建议 不全局也可以）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	LiynNet *_net;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或者定义一个属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, strong) LiynNet *net;</div></pre></td></tr></table></figure>
+<p>实例化这个LiynNet对象并建立代理关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 懒加载</div><div class="line">-(LiynNet *)net&#123;</div><div class="line">    if (_net == nil) &#123;</div><div class="line">        _net = [LiynNet defaultNet];</div><div class="line">        _net.delegate = self;</div><div class="line">    &#125;</div><div class="line">    return  _net;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="实现协议的方法"><a href="#实现协议的方法" class="headerlink" title="实现协议的方法"></a><strong>实现协议的方法</strong></h3><p>在这里你就可以操作返回的数据了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)netFinsh:(id)object&#123;</div><div class="line">    NSLog(@&quot;msgType %@\n msg %@&quot;,object[@&quot;msgType&quot;],object[@&quot;msg&quot;]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里你就需要慢慢查找原因了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)netError:(id)errorMsg&#123;</div><div class="line">    NSLog(@&quot;msgType %@\n msg %@&quot;, errorMsg[@&quot;msgType&quot;], errorMsg[@&quot;msg&quot;]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创分享/" rel="tag"># 原创分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/14/iOS--Water_Ripple_OC/" rel="next" title="水波纹-OC-iOS">
+                <i class="fa fa-chevron-left"></i> 水波纹-OC-iOS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/14/Mac--Cocoapods的安装/" rel="prev" title="Cocoapods的安装">
+                Cocoapods的安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.qwop.cn" target="_blank" title="阿里云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      阿里云
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.cn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下面是-h文件的内容"><span class="nav-number">1.</span> <span class="nav-text">下面是.h文件的内容:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下面是-m文件的内容"><span class="nav-number">2.</span> <span class="nav-text">下面是.m文件的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以下是网络请求"><span class="nav-number">3.</span> <span class="nav-text">以下是网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般POST下载请求"><span class="nav-number">3.1.</span> <span class="nav-text">一般POST下载请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般的GET下载请求"><span class="nav-number">3.2.</span> <span class="nav-text">一般的GET下载请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般的POST上传请求"><span class="nav-number">3.3.</span> <span class="nav-text">一般的POST上传请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个私有方法"><span class="nav-number">3.4.</span> <span class="nav-text">两个私有方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求数据成功"><span class="nav-number">3.4.1.</span> <span class="nav-text">请求数据成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求数据失败"><span class="nav-number">3.4.2.</span> <span class="nav-text">请求数据失败</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现协议的方法"><span class="nav-number">3.5.</span> <span class="nav-text">实现协议的方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
