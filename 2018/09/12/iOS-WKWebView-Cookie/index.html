@@ -94,16 +94,16 @@
 
 
 
-<meta name="description" content="设置cookie内容1234567891011121314151617/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
+<meta name="description" content="设置cookie内容12345678910111213141516/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS--WKWebView Cookie注入">
 <meta property="og:url" content="http://yoursite.com/2018/09/12/iOS-WKWebView-Cookie/index.html">
 <meta property="og:site_name" content="卟败灬筱龙">
-<meta property="og:description" content="设置cookie内容1234567891011121314151617/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
-<meta property="og:updated_time" content="2018-09-12T03:17:30.405Z">
+<meta property="og:description" content="设置cookie内容12345678910111213141516/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
+<meta property="og:updated_time" content="2018-09-12T03:20:00.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS--WKWebView Cookie注入">
-<meta name="twitter:description" content="设置cookie内容1234567891011121314151617/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
+<meta name="twitter:description" content="设置cookie内容12345678910111213141516/// 创建cookie 此处只为实例let cookieString =  &amp;quot;document.cookie=&amp;apos;cookie&amp;apos;&amp;quot;/// 注入cookielet userScript = WKUserScript.init(source: cookieString,">
 
 
 
@@ -363,7 +363,7 @@
       
 
       
-        <h2 id="设置cookie内容"><a href="#设置cookie内容" class="headerlink" title="设置cookie内容"></a>设置cookie内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/// 创建cookie 此处只为实例</div><div class="line"></div><div class="line">let cookieString =  &quot;document.cookie=&apos;cookie&apos;&quot;</div><div class="line"></div><div class="line">/// 注入cookie</div><div class="line">let userScript = WKUserScript.init(source: cookieString,</div><div class="line">                                  	   injectionTime: .atDocumentStart,</div><div class="line">                                  	   forMainFrameOnly: false)</div><div class="line">                                  	   </div><div class="line">let userController = WKUserContentController.init()</div><div class="line"></div><div class="line">userController.addUserScript(userScript)</div><div class="line"></div><div class="line">webViewConfig.userContentController = userController</div><div class="line"></div><div class="line">webView = WKWebView.init(frame:  frame,</div><div class="line">                  			 configuration: webViewConfig)</div></pre></td></tr></table></figure>
+        <h2 id="设置cookie内容"><a href="#设置cookie内容" class="headerlink" title="设置cookie内容"></a>设置cookie内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/// 创建cookie 此处只为实例</div><div class="line"></div><div class="line">let cookieString =  &quot;document.cookie=&apos;cookie&apos;&quot;</div><div class="line"></div><div class="line">/// 注入cookie</div><div class="line">let userScript = WKUserScript.init(source: cookieString,</div><div class="line">                                  	   injectionTime: .atDocumentStart,</div><div class="line">                                  	   forMainFrameOnly: false)</div><div class="line">                                  	   </div><div class="line">let userController = WKUserContentController.init()</div><div class="line"></div><div class="line">userController.addUserScript(userScript)</div><div class="line"></div><div class="line">webViewConfig.userContentController = userController</div><div class="line"></div><div class="line">webView = WKWebView.init(frame: frame, configuration: webViewConfig)</div></pre></td></tr></table></figure>
 <p>其中 ‘cookie’ 具体为你当前所在项目或者所需要的功能需要的内容，</p>
 <p>一般的会是 Key=Value 结构，每对键值对需要要  <strong>‘:’</strong>  来隔开。</p>
 <h3 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h3><p>某个项目cookie需要上传用户的token，</p>
