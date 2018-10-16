@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="原创分享," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -94,25 +94,16 @@
 
 
 
-<meta name="description" content="本文主要讲述如何集成富文本推送的相关扩展，另外还会有文章来详细展开">
-<meta name="keywords" content="原创分享">
+<meta name="description" content="AVAudioRecorder简介录音机，提供了在应用程序中的音频记录能力。作为与 AVAudioPlayer 相对应的 API，AVAudioRecorder 是将音频录制为文件的最简单的方法。除了用一个音量计接受音量的峰值和平均值以外，这个 API 简单粗暴，如果你的使用场景很简单的话，这可能恰恰就是你想要的方法。 录音配置创建AVAudioSession想要录音首先要创建一个AVAudioS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS10富文本推送--UNNotificationExtension--基础篇">
-<meta property="og:url" content="http://yoursite.com/2017/07/14/iOS10富文本推送--UNNotificationExtension-基础篇/index.html">
+<meta property="og:title" content="iOS--AVAudioRecorder如何录制MP3">
+<meta property="og:url" content="http://yoursite.com/2018/10/16/iOS-AVAudioRecorderMP3/index.html">
 <meta property="og:site_name" content="卟败灬筱龙">
-<meta property="og:description" content="本文主要讲述如何集成富文本推送的相关扩展，另外还会有文章来详细展开">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-4b2dec473ad115ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-80fe0d45afd8962d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-27417edf00b78513.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-ab76b6192e080b34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-f3f71592d59fa490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-c444d42624ec040d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1519926-891c922f190d490f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-12-26T06:58:34.000Z">
+<meta property="og:description" content="AVAudioRecorder简介录音机，提供了在应用程序中的音频记录能力。作为与 AVAudioPlayer 相对应的 API，AVAudioRecorder 是将音频录制为文件的最简单的方法。除了用一个音量计接受音量的峰值和平均值以外，这个 API 简单粗暴，如果你的使用场景很简单的话，这可能恰恰就是你想要的方法。 录音配置创建AVAudioSession想要录音首先要创建一个AVAudioS">
+<meta property="og:updated_time" content="2018-10-16T01:47:24.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS10富文本推送--UNNotificationExtension--基础篇">
-<meta name="twitter:description" content="本文主要讲述如何集成富文本推送的相关扩展，另外还会有文章来详细展开">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1519926-4b2dec473ad115ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="iOS--AVAudioRecorder如何录制MP3">
+<meta name="twitter:description" content="AVAudioRecorder简介录音机，提供了在应用程序中的音频记录能力。作为与 AVAudioPlayer 相对应的 API，AVAudioRecorder 是将音频录制为文件的最简单的方法。除了用一个音量计接受音量的峰值和平均值以外，这个 API 简单粗暴，如果你的使用场景很简单的话，这可能恰恰就是你想要的方法。 录音配置创建AVAudioSession想要录音首先要创建一个AVAudioS">
 
 
 
@@ -141,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/14/iOS10富文本推送--UNNotificationExtension-基础篇/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/16/iOS-AVAudioRecorderMP3/"/>
 
 
 
 
 
-  <title>iOS10富文本推送--UNNotificationExtension--基础篇 | 卟败灬筱龙</title>
+  <title>iOS--AVAudioRecorder如何录制MP3 | 卟败灬筱龙</title>
   
 
 
@@ -294,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/iOS10富文本推送--UNNotificationExtension-基础篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/16/iOS-AVAudioRecorderMP3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="卟败灬筱龙">
@@ -311,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS10富文本推送--UNNotificationExtension--基础篇</h1>
+          <h1 class="post-title" itemprop="name headline">iOS--AVAudioRecorder如何录制MP3</h1>
         
 
         <div class="post-meta">
@@ -323,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T17:48:18+08:00">
-                2017-07-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T09:26:26+08:00">
+                2018-10-16
               </time>
             
 
@@ -341,7 +332,7 @@
 
           
           
-             <span id="/2017/07/14/iOS10富文本推送--UNNotificationExtension-基础篇/" class="leancloud_visitors" data-flag-title="iOS10富文本推送--UNNotificationExtension--基础篇">
+             <span id="/2018/10/16/iOS-AVAudioRecorderMP3/" class="leancloud_visitors" data-flag-title="iOS--AVAudioRecorder如何录制MP3">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -372,49 +363,22 @@
       
 
       
-        <p>本文主要讲述如何集成富文本推送的相关扩展，另外还会有文章来详细展开</p>
- <a id="more"></a>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本地推送和远程推送同时都可支持附带Media Attachments。不过远程通知需要实现通知服务扩展（UNNotificationServiceExtension），在service extension里面去下载attachment，但是需要注意，service extension会限制下载的时间（30s），并且下载的文件大小也会同样被限制。这里毕竟是一个推送，而不是把所有的内容都推送给用户。所以你应该去推送一些缩小比例之后的版本。比如图片，推送里面附带缩略图，当用户打开app之后，再去下载完整的高清图。视频就附带视频的关键帧或者开头的几秒，当用户打开app之后再去下载完整视频。<br><strong>attachment支持图片，音频，视频，<a href="https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ" target="_blank" rel="external">附件支持的类型及大小</a></strong></p>
-<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><h3 id="添加Notification-Service-Extension"><a href="#添加Notification-Service-Extension" class="headerlink" title="添加Notification Service Extension"></a>添加Notification Service Extension</h3><p>在当前工程项目中添加新的Target–&gt; Notification Service<br>先在Xcode 打开你的工程，File–&gt;New–&gt;Target然后添加这个Notification Service Extension：<br><img src="http://upload-images.jianshu.io/upload_images/1519926-4b2dec473ad115ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=" Service Extension"></p>
-<h3 id="添加Notification-Content-Extension"><a href="#添加Notification-Content-Extension" class="headerlink" title="添加Notification Content Extension"></a>添加Notification Content Extension</h3><p>在当前工程项目中添加新的Target–&gt; Notification Content<br>先在Xcode 打开你的工程，File–&gt;New–&gt;Target然后添加这个Notification Content Extension：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1519926-80fe0d45afd8962d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Content Extension"></p>
-<h3 id="添加扩展完成"><a href="#添加扩展完成" class="headerlink" title="添加扩展完成"></a>添加扩展完成</h3><p>这样你的项目中就会有两个Extension Target</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1519926-27417edf00b78513.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Extension Target"></p>
-<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><h3 id="ServiceExtension-Info-plist"><a href="#ServiceExtension-Info-plist" class="headerlink" title="ServiceExtension Info.plist"></a><strong>ServiceExtension Info.plist</strong></h3><ul>
-<li>添加http协议支持，没错，这里是支持http协议的，不像其他文章说的不支持</li>
+        <h2 id="AVAudioRecorder简介"><a href="#AVAudioRecorder简介" class="headerlink" title="AVAudioRecorder简介"></a>AVAudioRecorder简介</h2><p>录音机，提供了在应用程序中的音频记录能力。作为与 AVAudioPlayer 相对应的 API，AVAudioRecorder 是将音频录制为文件的最简单的方法。除了用一个音量计接受音量的峰值和平均值以外，这个 API 简单粗暴，如果你的使用场景很简单的话，这可能恰恰就是你想要的方法。</p>
+<h2 id="录音配置"><a href="#录音配置" class="headerlink" title="录音配置"></a>录音配置</h2><h3 id="创建AVAudioSession"><a href="#创建AVAudioSession" class="headerlink" title="创建AVAudioSession"></a>创建AVAudioSession</h3><p>想要录音首先要创建一个AVAudioSession，这个通道用来调用录音设备；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">AVAudioSession *session = [AVAudioSession sharedInstance];</div><div class="line"></div><div class="line">NSError *sessionError;</div><div class="line"></div><div class="line">[session setCategory:AVAudioSessionCategoryPlayAndRecord error:&amp;sessionError];</div><div class="line"></div><div class="line">if(session == nil)&#123;</div><div class="line">    </div><div class="line">    NSLog(@&quot;Error creating session: %@&quot;, [sessionError description]);</div><div class="line">    </div><div class="line">&#125;</div><div class="line">else&#123;</div><div class="line">    </div><div class="line">    [session setActive:YES error:nil];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建录音设置字典"><a href="#创建录音设置字典" class="headerlink" title="创建录音设置字典"></a>创建录音设置字典</h3><p>想要录音 总得配置点啥吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">NSMutableDictionary *audioSetting = [NSMutableDictionary dictionary]; </div><div class="line"></div><div class="line">// 设置录音格式 kAudioFormatMPEGLayer3设置貌似是没用的 默认设置就行</div><div class="line">//[audioSetting setObject:@(kAudioFormatMPEGLayer3) forKey:AVFormatIDKey];</div><div class="line"></div><div class="line">// 设置录音采样率，8000 44100 96000，对于一般录音已经够了</div><div class="line">[audioSetting setObject:@(22150) forKey:AVSampleRateKey];</div><div class="line"></div><div class="line">// 设置通道 1 2</div><div class="line">[audioSetting setObject:@(1) forKey:AVNumberOfChannelsKey];</div><div class="line"></div><div class="line">// 每个采样点位数,分为8、16、24、32</div><div class="line">[audioSetting setObject:@(16) forKey:AVLinearPCMBitDepthKey];</div><div class="line"></div><div class="line">// 是否使用浮点数采样 如果不是MP3需要用Lame转码为mp3的一定记得设置NO！(不然转码之后的声音一直都是杂音)</div><div class="line">// 是否使用浮点数采样 如果不是MP3需要用Lame转码为mp3的一定记得设置NO！(不然转码之后的声音一直都是杂音)</div><div class="line">// 是否使用浮点数采样 如果不是MP3需要用Lame转码为mp3的一定记得设置NO！(不然转码之后的声音一直都是杂音)</div><div class="line"></div><div class="line">[audioSetting setObject:@(YES) forKey:AVLinearPCMIsFloatKey];</div><div class="line"></div><div class="line">// 录音质量</div><div class="line">[audioSetting setObject:@(AVAudioQualityHigh) forKey:AVEncoderAudioQualityKey];</div></pre></td></tr></table></figure>
+<h3 id="创建一个录音文件的存放路径"><a href="#创建一个录音文件的存放路径" class="headerlink" title="创建一个录音文件的存放路径"></a>创建一个录音文件的存放路径</h3><p>录完音总得给个地方存吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//  在Documents目录下创建一个名为FileData的文件夹</div><div class="line">NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject] stringByAppendingPathComponent:@&quot;Cache/AudioData&quot;];</div><div class="line">NSLog(@&quot;%@&quot;,path);</div><div class="line"></div><div class="line">NSFileManager *fileManager = [NSFileManager defaultManager];</div><div class="line">BOOL isDir = FALSE;</div><div class="line">BOOL isDirExist = [fileManager fileExistsAtPath:path isDirectory:&amp;isDir];</div><div class="line">if(!(isDirExist &amp;&amp; isDir)) &#123;</div><div class="line">    BOOL bCreateDir = [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];</div><div class="line">    if(!bCreateDir)&#123;</div><div class="line">        NSLog(@&quot;创建文件夹失败！&quot;);</div><div class="line">    &#125;</div><div class="line">    NSLog(@&quot;创建文件夹成功，文件路径%@&quot;,path);</div><div class="line">&#125;</div><div class="line"></div><div class="line"> //每次启动后都保存一个新的文件中</div><div class="line">NSDateFormatter *formatter = [[NSDateFormatter alloc] init];</div><div class="line"></div><div class="line">[formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@&quot;zh_CN&quot;]];</div><div class="line"></div><div class="line">[formatter setDateFormat:@&quot;yyyy_MM_dd_HH_mm_ss&quot;];</div><div class="line">   </div><div class="line">NSString *dateStr = [formatter stringFromDate:[NSDate date]];</div><div class="line"></div><div class="line">// 想要录制MP3格式的 这里 MP3 必须大写 ！！！！(苹果的所有后缀名都是大写，所以这是个坑)</div><div class="line">// 想要录制MP3格式的 这里 MP3 必须大写 ！！！！(苹果的所有后缀名都是大写，所以这是个坑)</div><div class="line">// 想要录制MP3格式的 这里 MP3 必须大写 ！！！！(苹果的所有后缀名都是大写，所以这是个坑)</div><div class="line"></div><div class="line">path = [path stringByAppendingFormat:@&quot;/%@.MP3&quot;,dateStr];</div><div class="line"></div><div class="line">NSLog(@&quot;file path:%@&quot;,path);</div><div class="line"></div><div class="line">NSURL *url=[NSURL fileURLWithPath:path];</div></pre></td></tr></table></figure>
+<h3 id="录音完整操作"><a href="#录音完整操作" class="headerlink" title="录音完整操作"></a>录音完整操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">//如果是在录音就不做动作</div><div class="line">if ([self.audioRecorder isRecording]) &#123;</div><div class="line">    return;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//创建录音通道</div><div class="line">[self setAudioSession];</div><div class="line"></div><div class="line">//创建录音格式设置</div><div class="line">NSDictionary *setting = [self getAudioSetting];</div><div class="line"></div><div class="line">//创建录音文件保存路径</div><div class="line">NSURL *url = [self getSavePath];</div><div class="line"></div><div class="line">//创建录音机</div><div class="line">NSError *error=nil;</div><div class="line">self.audioRecorder=[[AVAudioRecorder alloc]initWithURL:url settings:setting error:&amp;error];</div><div class="line">self.audioRecorder.delegate=self;</div><div class="line">self.audioRecorder.meteringEnabled=YES;//如果要监控声波则必须设置为YES</div><div class="line"></div><div class="line">if (error) &#123;</div><div class="line">    NSLog(@&quot;创建录音机时发生错误，信息：%@&quot;,error.localizedDescription);</div><div class="line">&#125;</div><div class="line">else&#123;</div><div class="line">    if (![self.audioRecorder isRecording]) &#123;</div><div class="line">        </div><div class="line">        NSLog(@&quot;录音开始&quot;);</div><div class="line">        </div><div class="line">        [self.audioRecorder record];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li><p><a href="https://www.jianshu.com/p/ce8149399df2" target="_blank" rel="external">简书：</a><a href="https://www.jianshu.com/p/ce8149399df2" target="_blank" rel="external">https://www.jianshu.com/p/ce8149399df2</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83068382" target="_blank" rel="external">CSDN：</a><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83068382" target="_blank" rel="external">https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83068382</a></p>
+</li>
+<li><p><a href="http://ilongge.cn/2018/09/21/iOS-DeviceSupport/" target="_blank" rel="external">ilongge.cn：</a><a href="http://ilongge.cn/2018/09/21/iOS-DeviceSupport/" target="_blank" rel="external">http://ilongge.cn/2018/09/21/iOS-DeviceSupport/</a> </p>
+</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/1519926-ab76b6192e080b34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ServiceExtension Info.plist"></p>
-<h3 id="ContentExtension-Info-plist"><a href="#ContentExtension-Info-plist" class="headerlink" title="ContentExtension Info.plist"></a><strong>ContentExtension Info.plist</strong></h3><ul>
-<li>设置可以改变</li>
-<li>如果不想使用故事版把NSExtensionMainStoryboard替换为NSExtensionPrincipalClass（我这里已经）<br><img src="http://upload-images.jianshu.io/upload_images/1519926-f3f71592d59fa490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ContentExtension Info.plist"></li>
-</ul>
-<h3 id="ServiceExtension基本设置"><a href="#ServiceExtension基本设置" class="headerlink" title="ServiceExtension基本设置"></a><strong>ServiceExtension基本设置</strong></h3><ul>
-<li>当前Target的BundleID根据项目主Target的BundleID自动生成</li>
-<li>格式”项目主Target的BundleID.-当前Target名称”</li>
-<li>例如当前项目BundleID为 com.apple.NotificationDemo，ServiceExtension的名字是NotificationService</li>
-<li>那么ServiceExtension的BundleID就是com.apple.NotificationDemo.-NotificationService</li>
-<li>Automatically manages signing 官方建议勾选</li>
-<li>Deployment Target 必须设置为10.0以上，不能设置为10.0以下<br><img src="http://upload-images.jianshu.io/upload_images/1519926-c444d42624ec040d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ServiceExtension基本设置"></li>
-</ul>
-<h3 id="ContentExtension基本设置"><a href="#ContentExtension基本设置" class="headerlink" title="ContentExtension基本设置"></a><strong>ContentExtension基本设置</strong></h3><ul>
-<li>当前Target的BundleID根据项目主Target的BundleID自动生成</li>
-<li>格式”项目主Target的BundleID.-当前Target名称”</li>
-<li>例如当前项目BundleID为 com.apple.NotificationDemo，ContentExtension的名字是NotificationContent</li>
-<li>那么ServiceExtension的BundleID就是com.apple.NotificationDemo.-NotificationContent</li>
-<li>Automatically manages signing 官方建议勾选</li>
-<li>Deployment Target 必须设置为10.0以上，不能设置为10.0以下<br><img src="http://upload-images.jianshu.io/upload_images/1519926-891c922f190d490f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ContentExtension基本设置"></li>
-</ul>
-<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><ul>
-<li>首先当前应用需要支持APNS,不支持的自己集成去吧<h3 id="服务器向设备发送通知"><a href="#服务器向设备发送通知" class="headerlink" title="服务器向设备发送通知"></a>服务器向设备发送通知</h3>这个通知消息的格式是有要求的，有以下几点需要注意：</li>
-<li>aps字段必须要有，不然收不到通知</li>
-<li>aps字段下alert字段必须要有，不然也收不到通知</li>
-<li>alert字段的值是字符串的时候，不可为空，不然的话你虽然收的到通知，但是是手机除了震动或者声音，没有任何提示</li>
-<li>alert字段的值是字典的时候，下面这三个字段必须要有一个，不然和上面一样。就是一句话alert的值必须是可以使用的</li>
-<li>mutable-content字段值最好是1，目前没见过其他值</li>
-<li>如果你想在iOS10上展示位富文本的推送格式，category字段必须带，值必须在info.plist文件中能找的到的</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"> &#123;</div><div class="line">   &quot;aps&quot;:&#123;</div><div class="line">        &quot;alert&quot; : &#123;</div><div class="line">             &quot;title&quot; : &quot;iOS远程消息主标题！-title&quot;,</div><div class="line">              &quot;subtitle&quot; : &quot;iOS远程消息副标题！-Subtitle&quot;,</div><div class="line">              &quot;body&quot; : &quot;longge -body&quot;</div><div class="line">            &#125;,</div><div class="line">        &quot;sound&quot; : &quot;default&quot;,</div><div class="line">        &quot;badge&quot; : &quot;1&quot;,</div><div class="line">        &quot;mutable-content&quot; : &quot;1&quot;,</div><div class="line">        &quot;category&quot; : &quot;Image_Category&quot;,</div><div class="line">    &#125;,</div><div class="line">    &quot;image&quot; : &quot;http://ot260qjni.bkt.clouddn.com/testOne.jpeg&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的测试图片好像不能用了（具体能不能用你们最好测试一下，直接浏览器打开能看到就可以用），我也不知道为啥 你们可以自己去找找先关的图床。</p>
 
       
     </div>
@@ -430,12 +394,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/原创分享/" rel="tag"># 原创分享</a>
-          
-        </div>
-      
 
       
       
@@ -445,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/14/iOS--Custom_AFNetworking/" rel="next" title="简单封装AFNetworking">
-                <i class="fa fa-chevron-left"></i> 简单封装AFNetworking
+              <a href="/2018/09/21/iOS-DeviceSupport/" rel="next" title="iOS--DeviceSupport(持续更新)">
+                <i class="fa fa-chevron-left"></i> iOS--DeviceSupport(持续更新)
               </a>
             
           </div>
@@ -454,10 +412,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/14/iOS时间工具类/" rel="prev" title="iOS时间工具类">
-                iOS时间工具类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -650,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">1.0.1.</span> <span class="nav-text">准备工作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Notification-Service-Extension"><span class="nav-number">1.1.</span> <span class="nav-text">添加Notification Service Extension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Notification-Content-Extension"><span class="nav-number">1.2.</span> <span class="nav-text">添加Notification Content Extension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加扩展完成"><span class="nav-number">1.3.</span> <span class="nav-text">添加扩展完成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-number">2.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ServiceExtension-Info-plist"><span class="nav-number">2.1.</span> <span class="nav-text">ServiceExtension Info.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ContentExtension-Info-plist"><span class="nav-number">2.2.</span> <span class="nav-text">ContentExtension Info.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServiceExtension基本设置"><span class="nav-number">2.3.</span> <span class="nav-text">ServiceExtension基本设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ContentExtension基本设置"><span class="nav-number">2.4.</span> <span class="nav-text">ContentExtension基本设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器向设备发送通知"><span class="nav-number">3.1.</span> <span class="nav-text">服务器向设备发送通知</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVAudioRecorder简介"><span class="nav-number">1.</span> <span class="nav-text">AVAudioRecorder简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#录音配置"><span class="nav-number">2.</span> <span class="nav-text">录音配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建AVAudioSession"><span class="nav-number">2.1.</span> <span class="nav-text">创建AVAudioSession</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建录音设置字典"><span class="nav-number">2.2.</span> <span class="nav-text">创建录音设置字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个录音文件的存放路径"><span class="nav-number">2.3.</span> <span class="nav-text">创建一个录音文件的存放路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录音完整操作"><span class="nav-number">2.4.</span> <span class="nav-text">录音完整操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">3.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>
