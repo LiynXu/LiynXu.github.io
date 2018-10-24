@@ -374,7 +374,33 @@
 <p>可是实际上呢，硬盘制造厂商觉得这个数字不好计算，就统一用了一个整数：1000</p>
 <p>乍一看 1024换到1000没啥关系，可是看完下面的计算你觉得呢：</p>
 <p>因为实际容量的换算和计算机读取的换算是1000/1024的关系，所以容量每升一级，都在缩水</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">1000 B  = 1KB   (1 * 1000 / 1024 = 0.976562 KB)        实际显示 1000 B</div><div class="line"></div><div class="line">1000 KB = 1MB  （0.976562 * 1000 / 1024 = 0.953674 MB) 实际显示 976 KB</div><div class="line"></div><div class="line">1000 MB = 1GB   (0.953674 * 1000 / 1024 = 0.931322 GB) 实际显示 953 MB</div><div class="line"></div><div class="line">1000 GB = 1TB   (0.931322 * 1000 / 1024 = 0.909494 TB) 实际显示 931 GB (目前主流机械硬盘单盘的容量单位 TB )</div><div class="line"></div><div class="line">1000 TB = 1PB   (0.909494 * 1000 / 1024 = 0.888178 PB) 实际显示 909 TB (目前大型服务器总容量单位 PB )</div><div class="line"></div><div class="line">1000 PB = 1EB   (0.888178 * 1000 / 1024 = 0.867361 EB) 实际显示 888 PB  **【这】**   **【毕】**</div><div class="line"></div><div class="line">1000 EB = 1ZB   (0.867361 * 1000 / 1024 = 0.847032 ZB) 实际显示 867 EB  **【些】**   **【竟】**</div><div class="line"></div><div class="line">1000 ZB = 1YB   (0.847032 * 1000 / 1024 = 0.827180 YB) 实际显示 847 ZB  **【你】**   **【你】**</div><div class="line"></div><div class="line">1000 YB = 1BB   (0.827180 * 1000 / 1024 = 0.807793 BB) 实际显示 827 YB  **【就】**   **【现】**</div><div class="line"></div><div class="line">1000 BB = 1NB   (0.807793 * 1000 / 1024 = 0.788860 NB) 实际显示 807 BB  **【不】**   **【在】**</div><div class="line"></div><div class="line">1000 NB = 1DB   (0.788860 * 1000 / 1024 = 0.770371 DB) 实际显示 788 NB  **【用】**   **【买】**</div><div class="line"></div><div class="line">1000 DB = 1CB   (0.770371 * 1000 / 1024 = 0.752316 CB) 实际显示 770 DB  **【看】**   **【不】**</div><div class="line"></div><div class="line">1000 CB = 1XB   (0.752316 * 1000 / 1024 = 0.734683 XB) 实际显示 752 CB  **【了】**   **【起】**</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 B  = 1KB   (1 * 1000 / 1024 = 0.976562 KB)        实际显示 1000 B</div></pre></td></tr></table></figure>
+<p>显示的看起来没问题，因为这是最小单位，还不够一次换算的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 KB = 1MB  （0.976562 * 1000 / 1024 = 0.953674 MB) 实际显示 976 KB</div></pre></td></tr></table></figure>
+<p>这个仅仅少了48KB也不算多啊。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 MB = 1GB   (0.953674 * 1000 / 1024 = 0.931322 GB) 实际显示 953 MB</div></pre></td></tr></table></figure>
+<p>这个也才少了71兆也不是。。。很多啊。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 GB = 1TB   (0.931322 * 1000 / 1024 = 0.909494 TB) 实际显示 931 GB (目前主流机械硬盘单盘的容量单位 TB )</div></pre></td></tr></table></figure>
+<p>啊哟，卧槽这不是1T的硬盘么怎么才931G了，少了快100G了，这TM，JS！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 TB = 1PB   (0.909494 * 1000 / 1024 = 0.888178 PB) 实际显示 909 TB (目前大型服务器总容量单位 PB )</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 PB = 1EB   (0.888178 * 1000 / 1024 = 0.867361 EB) 实际显示 888 PB  **【这】**   **【毕】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 EB = 1ZB   (0.867361 * 1000 / 1024 = 0.847032 ZB) 实际显示 867 EB  **【些】**   **【竟】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 ZB = 1YB   (0.847032 * 1000 / 1024 = 0.827180 YB) 实际显示 847 ZB  **【你】**   **【你】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 YB = 1BB   (0.827180 * 1000 / 1024 = 0.807793 BB) 实际显示 827 YB  **【就】**   **【现】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 BB = 1NB   (0.807793 * 1000 / 1024 = 0.788860 NB) 实际显示 807 BB  **【不】**   **【在】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 NB = 1DB   (0.788860 * 1000 / 1024 = 0.770371 DB) 实际显示 788 NB  **【用】**   **【买】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 DB = 1CB   (0.770371 * 1000 / 1024 = 0.752316 CB) 实际显示 770 DB  **【看】**   **【不】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1000 CB = 1XB   (0.752316 * 1000 / 1024 = 0.734683 XB) 实际显示 752 CB  **【了】**   **【起】**</div></pre></td></tr></table></figure>
+<p>买不起，不可描述。</p>
+
           
         
       
