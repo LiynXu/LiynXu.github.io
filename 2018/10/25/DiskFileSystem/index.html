@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="文件系统在计算中，文件系统或文件系统控制数据的存储和检索方式。如果没有文件系统，放置在存储介质中的信息将是一大块数据，无法分辨一条信息停止的位置和下一条信息的开始位置。通过将数据分成多个部分并为每个部分命名，可以轻松地隔离和识别信息。从名为纸质信息系统的名称中取名，每组数据称为“ 文件 ”。用于管理信息组及其名称的结构和逻辑规则称为“文件系统”。 有许多不同类型的文件系统。每个都有不同的结构和逻辑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科普--常见的磁盘文件系统">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/DiskFileSystem/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="文件系统在计算中，文件系统或文件系统控制数据的存储和检索方式。如果没有文件系统，放置在存储介质中的信息将是一大块数据，无法分辨一条信息停止的位置和下一条信息的开始位置。通过将数据分成多个部分并为每个部分命名，可以轻松地隔离和识别信息。从名为纸质信息系统的名称中取名，每组数据称为“ 文件 ”。用于管理信息组及其名称的结构和逻辑规则称为“文件系统”。 有许多不同类型的文件系统。每个都有不同的结构和逻辑">
+<meta property="og:updated_time" content="2018-10-25T07:18:05.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="科普--常见的磁盘文件系统">
+<meta name="twitter:description" content="文件系统在计算中，文件系统或文件系统控制数据的存储和检索方式。如果没有文件系统，放置在存储介质中的信息将是一大块数据，无法分辨一条信息停止的位置和下一条信息的开始位置。通过将数据分成多个部分并为每个部分命名，可以轻松地隔离和识别信息。从名为纸质信息系统的名称中取名，每组数据称为“ 文件 ”。用于管理信息组及其名称的结构和逻辑规则称为“文件系统”。 有许多不同类型的文件系统。每个都有不同的结构和逻辑">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/25/DiskFileSystem/"/>
+
+
+
+
+
+  <title>科普--常见的磁盘文件系统 | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/DiskFileSystem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">科普--常见的磁盘文件系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T09:01:56+08:00">
+                2018-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/25/DiskFileSystem/" class="leancloud_visitors" data-flag-title="科普--常见的磁盘文件系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>在计算中，文件系统或文件系统控制数据的存储和检索方式。如果没有文件系统，放置在存储介质中的信息将是一大块数据，无法分辨一条信息停止的位置和下一条信息的开始位置。通过将数据分成多个部分并为每个部分命名，可以轻松地隔离和识别信息。从名为纸质信息系统的名称中取名，每组数据称为“ 文件 ”。用于管理信息组及其名称的结构和逻辑规则称为“文件系统”。</p>
+<p>有许多不同类型的文件系统。每个都有不同的结构和逻辑，速度，灵活性，安全性，大小等属性。某些文件系统已设计用于特定应用程序。例如，ISO 9660文件系统专为光盘设计。</p>
+<p>文件系统可以用在使用不同种类媒体的众多不同类型的存储设备上。今天使用的最常见的存储设备[ 何时？]是一个硬盘驱动器。使用的其他种类的介质包括闪存，磁带和光盘。在某些情况下，例如使用tmpfs，计算机的主存储器（随机存取存储器，RAM）用于创建临时文件系统以供短期使用。</p>
+<p>一些文件系统用于本地数据存储设备 ; [1]其他人通过网络协议提供文件访问（例如，NFS，[2] SMB或9P客户端）。某些文件系统是“虚拟”的，这意味着提供的“文件”（称为虚拟文件）是根据请求计算的（例如procfs和sysfs），或者仅仅是映射到用作后备存储的不同文件系统。文件系统管理对文件内容和元数据的访问关于那些文件。它负责安排存储空间; 关于物理存储介质的可靠性，效率和调整是重要的设计考虑因素。<br><a id="more"></a></p>
+<h2 id="常见文件系统的格式"><a href="#常见文件系统的格式" class="headerlink" title="常见文件系统的格式"></a>常见文件系统的格式</h2><h3 id="windows系统常见的文件系统"><a href="#windows系统常见的文件系统" class="headerlink" title="windows系统常见的文件系统"></a>windows系统常见的文件系统</h3><h4 id="FAT"><a href="#FAT" class="headerlink" title="FAT"></a>FAT</h4><p>FAT是文件配置表（英语：File Allocation Table，首字母缩略字：FAT），是一种由微软发明并拥有部分专利的文件系统，供MS-DOS使用，也是所有非NT核心的微软窗口使用的文件系统。</p>
+<p>FAT文件系统考虑当时电脑性能有限，所以未被复杂化，因此几乎所有个人电脑的操作系统都支持。这特性使它成为理想的软盘和存储卡文件系统，也适合用作不同操作系统中的数据交流。现在，一般所讲的FAT专指FAT32。</p>
+<p>但FAT有一个严重的缺点：当文件被删除并且在同一位置被写入新数据，他们的片段通常是分散的，减慢了读写速度。磁盘碎片重整是一种解决方法，但必须经常重组来保持FAT文件系统的效率。</p>
+<p>FAT的缺点还有以下几点：</p>
+<ul>
+<li>⒈太浪费磁盘空间</li>
+<li>⒉磁盘利用效率低</li>
+<li>⒊文件存储受限制</li>
+<li>⒋不支持长文件名，只能支持8个字符。</li>
+<li>⒌安全性较差</li>
+</ul>
+<h4 id="FAT16"><a href="#FAT16" class="headerlink" title="FAT16"></a>FAT16</h4><p>FAT16使用了16位的空间来表示每个扇区(Sector)配置文件的情形，故称之为FAT16。</p>
+<p>初期的FAT就是现在俗称的FAT16。作为软盘的文件系统，它有几项限制：不支持分层性结构，丛集寻址只有12位（这使得控制FAT有些棘手）而且只支持最多32M（216）的分区。</p>
+<p>FAT16由于受到先天的限制，因此每超过一定容量的分区之后，它所使用的簇（Cluster）大小就必须扩增，以适应更大的磁盘空间。所谓簇就是磁盘空间的配置单位，就象图书馆内一格一格的书架一样。每个要存到磁盘的文件都必须配置足够数量的簇，才能存放到磁盘中。</p>
+<p>FAT16各分区与簇大小的关系如下表：<br>分区大小 FAT16簇大小</p>
+<ul>
+<li>16MB-127MB 2KB</li>
+<li>128MB-255MB 4KB</li>
+<li>256MB-511MB 8KB</li>
+<li>512MB-1023MB16KB</li>
+<li>1024MB-2047MB 32KB</li>
+</ul>
+<p>由上可知，FAT16文件系统有两个最大的缺点：</p>
+<ul>
+<li><p>磁盘分区最大只能到2GB。当前只要你添购计算机的话，想必其中的硬盘大小必定至少有2GB，而现在300GB,700GB以上的硬盘比比皆是，且物美价廉。FAT16文件系统已不能适应当前这种大容量的硬盘，必须被迫分区成几个磁盘空间。而分区磁盘的大小又牵扯出簇的问题来，可谓影响颇大。</p>
+</li>
+<li><p>使用簇的大小不恰当。试想，如果一个只有1KB大小的文件放置在一个1000MB的磁盘分区中，它所占的空间并不是1KB，而是16KB，足足浪费了15KB！当前流行的HTML文件，其大小几乎多为1KB、2KB，而制作一个网站往往用到数十个HTML文件。如果你的硬盘中有100个这种小文件的话，你浪费的磁盘空间可从700KB（511MB的分区），到3.1MB（2047MB的分区）。</p>
+</li>
+</ul>
+<h4 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h4><p>FAT32是分区格式的一种。这种格式采用32位的文件分配表，使其对磁盘的管理能力大大增强，突破了FAT16对每一个分区的容量只有2 GB的限制。由于现在的硬盘生产成本下降，其容量越来越大，运用FAT32的分区格式后，我们可以将一个大硬盘定义成一个分区而不必分为几个分区使用，大大方便了对磁盘的管理。但由于FAT32分区内无法存放大于4GB的单个文件，且性能不佳，易产生磁盘碎片。目前已被性能更优异的NTFS分区格式所取代。[百度百科]</p>
+<p>FAT32实际上是文件分区表采取的一种形式，它是相对于FAT16而言的。众所周知，Dos和Windows95采用的都是FAT16格式。至于FAT32，准确地说是在Windows95OSR2中第一次出现的，之所以没有宣传是因为当时该文件系统还不够成熟，尚处于试探阶段。那么为什么一定要推出FAT32呢？这主要是由其自身的优越性决定的。</p>
+<p>首先，它可以大大地节约磁盘空间。文件在磁盘上是以簇的方式存放的，簇里存放了一个文件就不能再存放另外的文件。假如一个磁盘的分区大小为512MB，基于FAT16的系统的簇的大小为8KB，而FAT32系统的簇的大小仅是4KB，那么，我们存放一个3KB的文件，FAT16系统就会有5KB的空间被浪费，而FAT32的浪费则会少一些。如果分区达到1GB，FAT16的簇为16KB，而FAT32还是4KB，节省的也就更多了。</p>
+<p>在推出FAT32文件系统之前，通常PC机使用的文件系统是FAT16。像基于MS-DOS，Win 95等系统都采用了FAT16文件系统。在Win 9X下，FAT16支持的分区最大为2GB。我们知道计算机将信息保存在硬盘上称为“簇”的区域内。使用的簇越小，保存信息的效率就越高。在FAT16的情况下，分区越大簇就相应的要增大，存储效率就越低，势必造成存储空间的浪费。并且随着计算机硬件和应用的不断提高，FAT16文件系统已不能很好地适应系统的要求。在这种情况下，推出了增强的文件系统FAT32。</p>
+<p>同FAT16相比，FAT32主要具有以下特点：</p>
+<ul>
+<li><p>同FAT16相比FAT32最大的优点是可以支持的磁盘大小达到2TB（2048GB），但是不能支持小于512MB的分区。基于FAT32的Win 2000可以支持分区最大为32GB；而基于 FAT16的Win 2000支持的分区最大2GB。</p>
+</li>
+<li><p>由于采用了更小的簇，FAT32文件系统可以更有效率地保存信息。如两个分区大小都为2GB，一个分区采用了FAT16文件系统，另一个分区采用了FAT32文件系统。采用FAT16的分区的簇大小为32KB，而FAT32分区的簇只有4KB的大小。这样FAT32就比FAT16的存储效率要高很多，通常情况下可以提高15%。</p>
+</li>
+<li><p>FAT32文件系统可以重新定位根目录和使用FAT的备份副本。另外FAT32分区的启动记录被包含在一个含有关键数据的结构中，减少了计算机系统崩溃的可能性。</p>
+</li>
+</ul>
+<p>与以前的 FAT 文件系统实现相比，FAT32 提供了以下增强功能：FAT32 支持最大为 2 TB 的驱动器。<br>注意：Microsoft Windows 2000 仅能支持最大为 32 GB 的 FAT32 分区。</p>
+<ul>
+<li><p>FAT32 可以更高效地使用空间。FAT32 使用较小的簇（即，对于大小在 8 GB 以内的驱动器，使用 4 KB 的簇），这与大的 FAT 或 FAT16 驱动器相比，可将磁盘空间的使用率提高10% 到 15%。</p>
+</li>
+<li><p>FAT32 更稳定可靠。FAT32 可以重新定位根文件夹，而且它使用文件分配表的备份副本，而不是使用默认副本。此外，FAT32 驱动器上的引导记录也得到扩展，包括了关键数据结构的备份副本。因此，与现有的 FAT16 驱动器相比，FAT32 驱动器不容易受单点故障的影响。</p>
+</li>
+<li><p>FAT32 更灵活。FAT32 驱动器上的根文件夹是普通的簇链，因此它可以位于驱动器上的任何位置。以前对根文件夹数量的限制不复存在。此外，可以禁用文件分配表镜像，这样就可以让文件分配表的副本而不是让第一个文件分配表处于活动状态。这些功能允许您动态重调 FAT32 分区的大小。不过要注意，虽然 FAT32 的设计允许这一功能，但 Microsoft 将不在初始版本中实现此功能。</p>
+</li>
+</ul>
+<p>在FAT32下，一个目录只能够容纳65536个文件。微软的官方文档没有给出。</p>
+<p><strong>【最后说一句，目前的windows所支持的UEFI安装方式，其引导文件所在分区就是也必须是FAT32文件系统分区。】</strong></p>
+<h4 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h4><p>exFAT（Extended File Allocation Table File System，扩展FAT，也称作FAT64，即扩展文件分配表）是Microsoft在Windows Embeded 5.0以上（包括Windows CE 5.0、6.0、Windows Mobile5、6、6.1）中引入的一种适合于闪存的文件系统，为了解决FAT32等不支持4G及其更大的文件而推出。对于闪存，NTFS文件系统不适合使用，exFAT更为适用。对于磁盘则不太适用。</p>
+<p>相对FAT文件系统，exFAT有如下好处：</p>
+<ul>
+<li>强了台式电脑与移动设备的互操作能力</li>
+<li>单文件大小最大可达16EB（18 446 744073 709 551 616字节，（理论值,16×1024×1024TB），1TB=1024G）</li>
+<li>簇大小可高达32MB</li>
+<li>采用了剩余空间分配表，剩余空间分配性能改进</li>
+<li>同一目录下最大文件数可达2,796,202个</li>
+<li>支持访问控制</li>
+<li>支持TFAT</li>
+<li>支持Apple MAC 系统</li>
+<li>采用该文件系统的闪存盘不支持Windows Vista ReadyBoost。Windows Vista SP1与Windows 8支持该文件系统。</li>
+</ul>
+<p>下面请看exFAT、NTFS、FAT分区的比较</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">分区格式</th>
+<th style="text-align:center">FAT32</th>
+<th style="text-align:center">NTFS</th>
+<th style="text-align:center">exFAT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">操作系统</td>
+<td style="text-align:center">Win 95 OSR2之后</td>
+<td style="text-align:center">Windows2000之后</td>
+<td style="text-align:center">Windows CE 6/Vista SP1/Windows 8</td>
+</tr>
+<tr>
+<td style="text-align:center">最小扇区</td>
+<td style="text-align:center">512Bytes</td>
+<td style="text-align:center">512Bytes</td>
+<td style="text-align:center">512Bytes</td>
+</tr>
+<tr>
+<td style="text-align:center">最大扇区</td>
+<td style="text-align:center">64KB</td>
+<td style="text-align:center">64KB</td>
+<td style="text-align:center">32768KB</td>
+</tr>
+<tr>
+<td style="text-align:center">最大单一文件</td>
+<td style="text-align:center">2Bytes-4GB</td>
+<td style="text-align:center">受最大分割容量</td>
+<td style="text-align:center">16EB（理论值</td>
+</tr>
+<tr>
+<td style="text-align:center">最大格式化容量</td>
+<td style="text-align:center">2TB(但NT内核系统限制为32GB）</td>
+<td style="text-align:center">2TB~256TB（受MBR影响，GPT分区格式可以更大）</td>
+<td style="text-align:center">16EB（理论值）（目前支持到256TB）</td>
+</tr>
+<tr>
+<td style="text-align:center">档案数量</td>
+<td style="text-align:center">4194304</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">至少可以大于1000</td>
+</tr>
+</tbody>
+</table>
+<p> <strong>【exFAT单个文件最小占用大小为4KB，所以不建议存储大量小文件，NTFS的占用30GB资料文件夹，拖到ExFAT的移动硬盘上变成了占用80GB】</strong></p>
+<h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>NTFS (New Technology File System)，是 WindowsNT 环境的文件系统。新技术文件系统是Windows NT家族（如，Windows 2000、Windows XP、Windows Vista、Windows 7、Windows 8、 Windows 8.1 、 Windows 10）等的限制级专用的文件系统（操作系统所在的盘符的文件系统必须格式化为NTFS的文件系统，4096簇环境下）。NTFS取代了老式的FAT文件系统。</p>
+<p>NTFS对FAT和HPFS作了若干改进，例如，支持元数据，并且使用了高级数据结构，以便于改善性能、可靠性和磁盘空间利用率，并提供了若干附加扩展功能。</p>
+<p>该文件系统的详细定义属于商业秘密 ，微软已经将其注册为知识产权产品。</p>
+<h5 id="支持大小"><a href="#支持大小" class="headerlink" title="支持大小"></a>支持大小</h5><p>NTFS可以支持的分区(如果采用动态磁盘则称为卷)大小可以达到2TB。而Windows2000中的FAT32支持分区的大小最大为32GB。</p>
+<h5 id="文件系统-1"><a href="#文件系统-1" class="headerlink" title="文件系统"></a>文件系统</h5><p>NTFS是一个可恢复的文件系统。在NTFS分区上用户很少需要运行磁盘修复程序。NTFS通过使用标准的事务处理日志和恢复技术来保证分区的一致性。发生系统失败事件时，NTFS使用日志文件和检查点信息自动恢复文件系统的一致性。</p>
+<h5 id="文件夹压缩"><a href="#文件夹压缩" class="headerlink" title="文件夹压缩"></a>文件夹压缩</h5><p>NTFS支持对分区、文件夹和文件的压缩。任何基于Windows的应用程序对NTFS分区上的压缩文件进行读写时不需要事先由其他程序进行解压缩，当对文件进行读取时，文件将自动进行解压缩；文件关闭或保存时会自动对文件进行压缩。</p>
+<h5 id="磁盘空间的有效管理"><a href="#磁盘空间的有效管理" class="headerlink" title="磁盘空间的有效管理"></a>磁盘空间的有效管理</h5><p>NTFS采用了更小的簇,可以更有效率地管理磁盘空间。在Win 2000的FAT32文件系统的情况下，分区大小在2GB～8GB时簇的大小为4KB；分区大小在8GB～16GB时簇的大小为8KB；分区大小在16GB～32GB时,簇的大小则达到了16KB。而Win 2000的NTFS文件系统，当分区的大小在2GB以下时，簇的大小都比相应的FAT32簇小;当分区的大小在2GB以上时(2GB～2TB),簇的大小都为4KB。相比之下，NTFS可以比FAT32更有效地管理磁盘空间，最大限度地避免了磁盘空间的浪费。</p>
+<h5 id="更好的安全性"><a href="#更好的安全性" class="headerlink" title="更好的安全性"></a>更好的安全性</h5><p>·在NTFS分区上，可以为共享资源、文件夹以及文件设置访问许可权限。许可的设置包括两方面的内容：一是允许哪些组或用户对文件夹、文件和共享资源进行访问；二是获得访问许可的组或用户可以进行什么级别的访问。访问许可权限的设置不但适用于本地计算机的用户,同样也应用于通过网络的共享文件夹对文件进行访问的网络用户。与FAT32文件系统下对文件夹或文件进行访问相比，安全性要高得多。另外，在采用NTFS格式的Win 2000中,应用审核策略可以对文件夹、文件以及活动目录对象进行审核，审核结果记录在安全日志中，通过安全日志就可以查看哪些组或用户对文件夹、文件或活动目录对象进行了什么级别的操作，从而发现系统可能面临的非法访问，通过采取相应的措施，将这种安全隐患减到最低。这些在FAT32文件系统下,是不能实现的。</p>
+<h5 id="更多的功能"><a href="#更多的功能" class="headerlink" title="更多的功能"></a>更多的功能</h5><p>在Win 2000的NTFS文件系统下可以进行磁盘配额管理。磁盘配额就是管理员可以为用户所能使用的磁盘空间进行配额限制，每一用户只能使用最大配额范围内的磁盘空间。设置磁盘配额后，可以对每一个用户的磁盘使用情况进行跟踪和控制，通过监测可以标识出超过配额报警阈值和配额限制的用户，从而采取相应的措施。磁盘配额管理功能的提供，使得管理员可以方便合理地为用户分配存储资源，避免由于磁盘空间使用的失控可能造成的系统崩溃，提高了系统的安全性。</p>
+<p>NTFS使用一个“变更”日志来跟踪记录文件所发生的变更。<br>还有诸如加密文件数据等等，和系统服务相关的不少东西。</p>
+<h5 id="系统优点"><a href="#系统优点" class="headerlink" title="系统优点"></a>系统优点</h5><ul>
+<li>更安全的文件保障，提供文件加密，能够大大提高信息的安全性。</li>
+<li>更好的磁盘压缩功能。</li>
+<li>支持最大达2TB的大硬盘，并且随着磁盘容量的增大，NTFS的性能不像FAT那样随之降低。</li>
+<li>可以赋予单个文件和文件夹权限。对同一个文件或者文件夹为不同用户可以指定不同的权限。在NTFS文件系统中，可以为单个用户设置权限。</li>
+<li>NTFS文件系统中设计的恢复能力无需用户在NTFS卷中运行磁盘修复程序。在系统崩溃事件中，NTFS文件系统使用日志文件和复查点信息自动恢复文件系统的一致性。</li>
+<li>NTFS文件夹的B-Tree结构使得用户在访问较大文件夹中的文件时，速度甚至比访问卷中较小的文件夹中的文件还快。</li>
+<li>可以在NTFS卷中压缩单个文件和文件夹。NTFS系统的压缩机制可以让用户直接读写压缩文件，而不需要使用解压软件将这些文件展开。</li>
+<li>支持活动目录和域。此特性可以帮助用户方便灵活地查看和控制网络资源。</li>
+<li>支持稀疏文件。稀疏文件是应用程序生成的一种特殊文件，文件尺寸非常大，但实际上只需要很少的磁盘空间，也就是说，NTFS只需要为这种文件实际写入的数据分配磁盘存储空间。</li>
+<li>支持磁盘配额。磁盘配额可以管理和控制每个用户所能使用的最大磁盘空间。</li>
+</ul>
+<h3 id="macOS系统常见的文件系统"><a href="#macOS系统常见的文件系统" class="headerlink" title="macOS系统常见的文件系统"></a>macOS系统常见的文件系统</h3><h4 id="HFS"><a href="#HFS" class="headerlink" title="HFS"></a>HFS</h4><p>分层文件系统（Hierarchical File System，HFS）是一种由苹果电脑开发，并使用在Mac OS上的文件系统。最初被设计用于软盘和硬盘，同时也可以在在只读媒体如CD-ROM上见到。</p>
+<h5 id="系统历史"><a href="#系统历史" class="headerlink" title="系统历史"></a>系统历史</h5><p>HFS首次出现在1985年9月17日，作为Macintosh电脑上新的文件系统。它取代只用于早期Mac型号所使用的平面文件系统Macintosh File System（MFS）。因为Macintosh电脑所产生的数据，比其它通常的文件系统，如DOS使用的FAT或原始Unix文件系统所允许存储的数据更多。苹果电脑开发了一种新式更适用的文件系统，而不是采用现有的规格。例如，HFS允许文件名最多有31个字符的长度，支持metadata和双分支（每个文件的数据和资源支分开存储）文件。</p>
+<p>尽管HFS象其它大多数文件系统一样被视为专有的格式，因为只有它为大多数最新的操作系统提供了很好的通用解决方法以存取HFS格式磁盘。</p>
+<p>在1998年，苹果电脑发布了HFS Plus，其改善了HFS对磁盘空间的地址定位效率低下，并加入了其它的改进。当前版本的Mac OS仍旧支持HFS，但从Mac OS X开始HFS卷不能作为启动用。</p>
+<h5 id="系统构成。"><a href="#系统构成。" class="headerlink" title="系统构成。"></a>系统构成。</h5><p>分层文件系统把一个卷分为许多512字节的“逻辑块”。这些逻辑块被编组为“分配块”，这些分配块可以根据卷的尺寸包含一个或多个逻辑块。HFS对地址分配块使用16位数值，分配块的最高限制数量是65536。</p>
+<p>组成一个HFS卷需要下面的五个结构：</p>
+<ul>
+<li>卷的逻辑块0和1是启动块，它包含了系统启动信息。例如，启动时载入的系统名称和壳（通常是Finder）文件。</li>
+<li>逻辑块2包含主目录块（Master Directory Block，简称MDB）。</li>
+<li>逻辑块3是卷位图（Volume Bitmap）的启动块，它追踪分配块使用状态。</li>
+<li>总目录文件（Catalog File）是一个包含所有文件的记录和储存在卷中目录的B*-tree。</li>
+<li>扩展溢出文件（Extent Overflow File）是当最初总目录文件中三个扩展占用后，另外一个包含额外扩展记录的分配块对应信息的B*-tree。</li>
+</ul>
+<h4 id="HFS-1"><a href="#HFS-1" class="headerlink" title="HFS+"></a>HFS+</h4><p>HFS+文件系统是目前的Apple电脑中默认的最常见的文件系统。HFS+来源于UNIX，但是又不用于UNIX，它增加了许多新的特性，同时也有许多不同于Windows、UNIX等系统的概念。HFS+是苹果公司为替代他们的分层文件系统（HFS）而开发的一种文件系统。它被用在macintosh电脑（或者其他运行Mac OS的电脑）上。它也是iPod上使用的其中一种格式。HFS+也被称为Mac OS Extended（或误称为“HFS Extended”)。在开发过程中，苹果公司也把这个文件系统的代号命名为“Sequoia”<br>HFS+是一个HFS的改进版本，支持更大的文件，并用Unicode来命名文件或文件夹，代替了Mac OS Roman或其他一些字符集. 和HFS一样，HFS+也使用B树来存储大部分分卷元数据。</p>
+<p>相对于HFS，HFS+文件系统主要有以下特点。</p>
+<h5 id="支持更多的块"><a href="#支持更多的块" class="headerlink" title="支持更多的块"></a>支持更多的块</h5><p>Mac系统把硬盘内的空间分为一个个的逻辑块，每个逻辑块大小为512字节，所以逻辑块其实就是扇区。文件系统中文件的分配单元并不是扇区，而是分配块，每个分配块的大小为2扇区，所以分配块也就相当于FAT文件系统及NTFS文件系统中的簇。</p>
+<p>HFS用16位记录块的数量，这样在一个宗卷中最多可以管理2个块。而HFS+用32为记录块的数量，所以一个宗卷中最多可以管理2个块。</p>
+<p>对于相同大小的宗卷，块数增加了就意味着可以减小块的大小，这样就可以减小存储空间的浪费，同时也能够增加文件系统中存储文件的个数。</p>
+<h5 id="支持更大的文件"><a href="#支持更大的文件" class="headerlink" title="支持更大的文件"></a>支持更大的文件</h5><p>在HFS文件系统中，文件的大小用32位描述，而在HFS+文件系统中用64为描述，所以能够支持更大的文件。</p>
+<h5 id="支持更长的文件名"><a href="#支持更长的文件名" class="headerlink" title="支持更长的文件名"></a>支持更长的文件名</h5><p>HFS文件系统的文件名只能达到31个字符的长度，而HFS+文件系统则支持255个字符长度的Unicode码文件名。</p>
+<h5 id="支持更大的节点"><a href="#支持更大的节点" class="headerlink" title="支持更大的节点"></a>支持更大的节点</h5><p>HFS文件系统的节点大小为512字节，而HFS+文件系统则支持4096字节的节点。</p>
+<h4 id="APFS"><a href="#APFS" class="headerlink" title="APFS"></a>APFS</h4><p>APFS是Apple File System的简称，是苹果公司发布的新的文件系统，替代目前所使用的HFS+文件系统。该系统的核心为加密功能，其将为苹果旗下的每款设备提供统一的加密方法。该系统包含有多密钥加密功能，内置有针对每个文件的密钥，其针对敏感元数据也都有独立的密钥。</p>
+<p>APFS 不完全是 HFS+ 的升级版，因为相对现在而言，它是一个量子级的飞跃。虽然这对苹果用户来说是一个重大的升级，但似乎这看起来更像是苹果赶上了其它系统，而不是超越了它们。然而，更新还进展得非常慢。</p>
+<h5 id="克隆和数据完整性"><a href="#克隆和数据完整性" class="headerlink" title="克隆和数据完整性"></a>克隆和数据完整性</h5><p>APFS 使用称为写时复制（copy-on-write）的方案来生成重复文件的即时克隆。在 HFS+ 下，当用户复制文件的时候，每一个比特（二进制中的“位”）都会被复制。而 APFS 则通过操作元数据并分配磁盘空间来创建克隆。但是，在修改复制的文件之前都不会复制任何比特。当克隆体与原始副本分离的时候，那些改动（并且只有那些改动）才会被保存。</p>
+<p>写时复制还提高了数据的完整性。在其它系统下，如果你卸载卷导致覆写操作挂起的话，你可能会发现你的文件系统有一部分与其它部分不同步。写时复制则通过将改动写入到可用的磁盘空间而不是覆盖旧文件来避免这个问题。直到写入操作成功完成前，旧文件都是正式版本。只有当新文件被成功复制时，旧文件才会被清除。</p>
+<h5 id="固态硬盘和闪存优化"><a href="#固态硬盘和闪存优化" class="headerlink" title="固态硬盘和闪存优化"></a>固态硬盘和闪存优化</h5><p>闪存优化已经被列为 APFS 的一个亮点功能，不过它的实现并没有那么振奋人心。苹果选择将一些典型的固态硬盘芯片的处理功能迁移到操作系统，而没有深度系统集成的优势。这更像是让文件系统感知固态硬盘，而不是为它们做优化。</p>
+<h5 id="动态分区调整"><a href="#动态分区调整" class="headerlink" title="动态分区调整"></a>动态分区调整</h5><p>APFS 驱动器的逻辑分区可以动态调整自身大小。用户只需指定所需分区的数量，然后文件系统会在运行时进行磁盘分配。每个分区只占用其用于存储文件的磁盘空间。剩余的磁盘空间会由任何分区获取。这种设计很整洁，不过比起其它文件系统，这更像是文件夹。</p>
+<h3 id="Linux系统常见的文件系统"><a href="#Linux系统常见的文件系统" class="headerlink" title="Linux系统常见的文件系统"></a>Linux系统常见的文件系统</h3><h4 id="Ext2"><a href="#Ext2" class="headerlink" title="Ext2"></a>Ext2</h4><p>EXT2第二代扩展文件系统（英语：second extended filesystem，缩写为 ext2），是LINUX内核所用的文件系统。它开始由Rémy Card设计，用以代替ext，于1993年1月加入linux核心支持之中。ext2 的经典实现为LINUX内核中的ext2fs文件系统驱动，最大可支持2TB的文件系统，至linux核心2.6版时，扩展到可支持32TB。其他的实现包括GNU Hurd，Mac OS X (第3方)，Darwin (第3方)，BSD。ext2为数个LINUX发行版的默认文件系统，如Debian、Red Hat Linux等</p>
+<p>其单一文件大小与文件系统本身的容量上限与文件系统本身的簇大小有关，在一般常见的 x86 电脑系统中，簇最大为 4KB, 则单一文件大小上限为 2048GB, 而文件系统的容量上限为 16384GB。<br>但由于目前核心 2.4 所能使用的单一分割区最大只有 2048GB，实际上能使用的文件系统容量最多也只有 2048GB。<br>至于Ext3文件系统，它属于一种日志文件系统，是对ext2系统的扩展。它兼容ext2，并且从ext2转换成ext3并不复杂</p>
+<p>1、当创建Ext2文件系统时，系统管理员可以根据预期的文件平均长度来选择最佳的块大小（从1024B——4096B）。例如，当文件的平均长度小于几千字节时，块的大小为1024B是最佳的，因为这会产生较少的内部碎片——也就是文件长度与存放块的磁盘分区有较少的不匹配。另一方面，大的块对于 大于几千字节的文件通常比较合合适，因为这样的磁盘传送较少，因而减轻了系统的开销 [1]  。<br>2、当创建Ext2文件系统时，系统管理员可以根据在给定大小的分区上预计存放的文件数来选择给该分区分配多少个索引节点。这可以有效地利用磁盘的空间。<br>3、文件系统把磁盘块分为组。每组包含存放在相邻磁道上的数据块和索引节点。正是这种结构，使得可以用较少的磁盘平均寻道时间对存放在一个单独块组中的文件并行访问。<br>4、在磁盘数据块被实际使用之前，文件系统就把这些块预分配给普通文件。因此当文件的大小增加时，因为物理上相邻的几个块已被保留，这就减少了文件的碎片。<br>5、支持快速符号链接。如果符号链接表示一个短路径名（小于或等于60个字符），就把它存放在索引节点中而不用通过由一个数据块进行转换。</p>
+<h4 id="Ext3"><a href="#Ext3" class="headerlink" title="Ext3"></a>Ext3</h4><p>EXT3是第三代扩展文件系统（英语：Third extended filesystem，缩写为ext3），是一个日志文件系统，常用于Linux操作系统。它是很多Linux发行版的默认文件系统。Stephen Tweedie在1999年2月的内核邮件列表中，最早显示了他使用扩展的ext2，该文件系统从2.4.15版本的内核开始，合并到内核主线中。</p>
+<h4 id="Ext4"><a href="#Ext4" class="headerlink" title="Ext4"></a>Ext4</h4><p>EXT4是第四代扩展文件系统（英语：Fourth extended filesystem，缩写为 ext4）是Linux系统下的日志文件系统，是ext3文件系统的后继版本。<br>Ext4是由Ext3的维护者Theodore Tso领导的开发团队实现的，并引入到Linux2.6.19内核中。<br>Ext4产生原因是开发人员在Ext3中加入了新的高级功能，但在实现的过程出现了几个重要问题：<br>（1）一些新功能违背向后兼容性<br>（2）新功能使Ext3代码变得更加复杂并难以维护<br>（3）新加入的更改使原来十分可靠的Ext3变得不可靠。<br>由于这些原因，从2006年6月份开始，开发人员决定把Ext4从Ext3中分离出来进行独立开发。Ext4的开发工作从那时起开始进行，但大部分Linux用户和管理员都没有太关注这件事情，直到2.6.19内核在2006年11月的发布。Ext4第一次出现在主流内核里，但是它当时还处于试验阶段，因此很多人都忽视了它。</p>
+<h5 id="更大的文件系统和更大的文件"><a href="#更大的文件系统和更大的文件" class="headerlink" title="更大的文件系统和更大的文件"></a>更大的文件系统和更大的文件</h5><p>Ext3文件系统最多只能支持32TB的文件系统和2TB的文件，根据使用的具体架构和系统设置，实际容量上限可能比这个数字还要低，即只能容纳2TB的文件系统和16GB的文件。而Ext4的文件系统容量达到1EB，而文件容量则达到16TB，这是一个非常大的数字了。对一般的台式机和服务器而言，这可能并不重要，但对于大型磁盘阵列的用户而言，这就非常重要了。</p>
+<h5 id="更多的子目录数量"><a href="#更多的子目录数量" class="headerlink" title="更多的子目录数量"></a>更多的子目录数量</h5><p>Ext3目前只支持32000个子目录，而Ext4取消了这一限制，理论上支持无限数量的子目录。</p>
+<h5 id="更多的块和i-节点数量"><a href="#更多的块和i-节点数量" class="headerlink" title="更多的块和i-节点数量"></a>更多的块和i-节点数量</h5><p>Ext3文件系统使用32位空间记录块数量和i-节点数量，而Ext4文件系统将它们扩充到64位。</p>
+<h5 id="多块分配"><a href="#多块分配" class="headerlink" title="多块分配"></a>多块分配</h5><p>当数据写入到Ext3文件系统中时，Ext3的数据块分配器每次只能分配一个4KB的块，如果写一个100MB的文件就要调用25600次数据块分配器，而Ext4的多块分配器“Multiblock Allocator（MBAlloc）”支持一次调用分配多个数据块。</p>
+<h5 id="持久性预分配"><a href="#持久性预分配" class="headerlink" title="持久性预分配"></a>持久性预分配</h5><p>如果一个应用程序需要在实际使用磁盘空间之前对它进行分配，大部分文件系统都是通过向未使用的磁盘空间写入0来实现分配，比如P2P软件。为了保证下载文件有足够的空间存放，常常会预先创建一个与所下载文件大小相同的空文件，以免未来的数小时或数天之内磁盘空间不足导致下载失败。而Ext4在文件系统层面实现了持久预分配并提供相应的API，比应用软件自己实现更有效率。</p>
+<h5 id="延迟分配"><a href="#延迟分配" class="headerlink" title="延迟分配"></a>延迟分配</h5><p>Ext3的数据块分配策略是尽快分配，而Ext4的策略是尽可能地延迟分配，直到文件在缓冲中写完才开始分配数据块并写入磁盘，这样就能优化整个文件的数据块分配，显著提升性能。</p>
+<h5 id="盘区结构"><a href="#盘区结构" class="headerlink" title="盘区结构"></a>盘区结构</h5><p>Ext3文件系统采用间接映射地址，当操作大文件时，效率极其低下。例如，一个100MB大小的文件，在Ext3中要建立25600个数据块（以每个数据块大小为4KB为例）的映射表；而Ext4引入了盘区概念，每个盘区为一组连续的数据块，上述文件可以通过盘区的方式表示为“该文件数据保存在接下来的25600个数据块中”，提高了访问效率。</p>
+<h5 id="新的i-节点结构"><a href="#新的i-节点结构" class="headerlink" title="新的i-节点结构"></a>新的i-节点结构</h5><p>Ext4支持更大的i-节点。之前的Ext3默认的i-节点大小128字节，Ext4为了在i-节点中容纳更多的扩展属性，默认i-节点大小为256字节。另外，Ext4还支持快速扩展属性和i-节点保留。</p>
+<h5 id="日志校验功能"><a href="#日志校验功能" class="headerlink" title="日志校验功能"></a>日志校验功能</h5><p>日志是文件系统最常用的结构，日志也很容易损坏，而从损坏的日志中恢复数据会导致更多的数据损坏。Ext4给日志数据添加了校验功能，日志校验功能可以很方便地判断日志数据是否损坏。而且Ext4将Ext3的两阶段日志机制合并成一个阶段，在增加安全性的同时提高了性能 [1]  。</p>
+<h5 id="支持“无日志”模式"><a href="#支持“无日志”模式" class="headerlink" title="支持“无日志”模式"></a>支持“无日志”模式</h5><p>日志总归会占用一些开销。Ext4允许关闭日志，以便某些有特殊需求的用户可以借此提升性能。</p>
+<h5 id="默认启用Barrier"><a href="#默认启用Barrier" class="headerlink" title="默认启用Barrier"></a>默认启用Barrier</h5><p>磁盘上配有内部缓存，以便重新调整批量数据的写操作顺序，优化写入性能，因此文件系统必须在日志数据写入磁盘之后才能写Commit记录。若Commit记录写入在先，而日志有可能损坏，那么就会影响数据完整性。Ext4文件系统默认启用Barrier，只有当Barrier之前的数据全部写入磁盘，才能写Barrier之后的数据。</p>
+<h5 id="在线碎片整理"><a href="#在线碎片整理" class="headerlink" title="在线碎片整理"></a>在线碎片整理</h5><p>尽管延迟分配、多块分配和盘区功能可以有效减少文件的碎片，但碎片还是不可避免会产生。Ext4支持在线碎片整理，并将提供e4defrag工具进行个别文件或整个文件系统的碎片整理。</p>
+<h5 id="支持快速fsck"><a href="#支持快速fsck" class="headerlink" title="支持快速fsck"></a>支持快速fsck</h5><p>以前的文件系统版本执行fsck时很慢，因为它要检查所有的i-节点，而Ext4给每个块组的i-节点表中都添加了一份未使用i-节点的列表，所以Ext4文件系统做一致性检查时就可以跳过它们而只去检查哪些在使用的i-节点，从而提高了速度。</p>
+<h5 id="支持纳秒级时间戳"><a href="#支持纳秒级时间戳" class="headerlink" title="支持纳秒级时间戳"></a>支持纳秒级时间戳</h5><p>Ext4之前的扩展文件系统的时间戳都是以秒为单位的，这已经能够应付大多数设置，但随着处理器的速度和集成程度（多核处理器）不断提升，以及Linux开始向其他应用领域发展，它将时间戳的单位提升到纳秒。<br>Ext4给时间范围增加了两个位，从而让时间寿命在延长500年，Ext4的时间戳支持的日期到2514年4月25日，而Ext3只达到2038年1月18日。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/24/HardDiskCapacitySmallerThanDisplayedByComputer/" rel="next" title="科普--硬盘标称容量为什么比电脑显示的要小?">
+                <i class="fa fa-chevron-left"></i> 科普--硬盘标称容量为什么比电脑显示的要小?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.qwop.cn" target="_blank" title="阿里云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      阿里云
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.cn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.baidu.com/" title="百度" target="_blank">百度</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.google.com" title="Google" target="_blank">Google</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://yizibi.github.io/" title="一之笔" target="_blank">一之笔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统"><span class="nav-number">1.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见文件系统的格式"><span class="nav-number">2.</span> <span class="nav-text">常见文件系统的格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows系统常见的文件系统"><span class="nav-number">2.1.</span> <span class="nav-text">windows系统常见的文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT"><span class="nav-number">2.1.1.</span> <span class="nav-text">FAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT16"><span class="nav-number">2.1.2.</span> <span class="nav-text">FAT16</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT32"><span class="nav-number">2.1.3.</span> <span class="nav-text">FAT32</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exFAT"><span class="nav-number">2.1.4.</span> <span class="nav-text">exFAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NTFS"><span class="nav-number">2.1.5.</span> <span class="nav-text">NTFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持大小"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">支持大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统-1"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件夹压缩"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">文件夹压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#磁盘空间的有效管理"><span class="nav-number">2.1.5.4.</span> <span class="nav-text">磁盘空间的有效管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更好的安全性"><span class="nav-number">2.1.5.5.</span> <span class="nav-text">更好的安全性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更多的功能"><span class="nav-number">2.1.5.6.</span> <span class="nav-text">更多的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统优点"><span class="nav-number">2.1.5.7.</span> <span class="nav-text">系统优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS系统常见的文件系统"><span class="nav-number">2.2.</span> <span class="nav-text">macOS系统常见的文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HFS"><span class="nav-number">2.2.1.</span> <span class="nav-text">HFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统历史"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">系统历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统构成。"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">系统构成。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HFS-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">HFS+</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持更多的块"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">支持更多的块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持更大的文件"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">支持更大的文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持更长的文件名"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">支持更长的文件名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持更大的节点"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">支持更大的节点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APFS"><span class="nav-number">2.2.3.</span> <span class="nav-text">APFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#克隆和数据完整性"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">克隆和数据完整性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#固态硬盘和闪存优化"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">固态硬盘和闪存优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态分区调整"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">动态分区调整</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统常见的文件系统"><span class="nav-number">2.3.</span> <span class="nav-text">Linux系统常见的文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ext2"><span class="nav-number">2.3.1.</span> <span class="nav-text">Ext2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ext3"><span class="nav-number">2.3.2.</span> <span class="nav-text">Ext3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ext4"><span class="nav-number">2.3.3.</span> <span class="nav-text">Ext4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#更大的文件系统和更大的文件"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">更大的文件系统和更大的文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更多的子目录数量"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">更多的子目录数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更多的块和i-节点数量"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">更多的块和i-节点数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多块分配"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">多块分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#持久性预分配"><span class="nav-number">2.3.3.5.</span> <span class="nav-text">持久性预分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#延迟分配"><span class="nav-number">2.3.3.6.</span> <span class="nav-text">延迟分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#盘区结构"><span class="nav-number">2.3.3.7.</span> <span class="nav-text">盘区结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新的i-节点结构"><span class="nav-number">2.3.3.8.</span> <span class="nav-text">新的i-节点结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日志校验功能"><span class="nav-number">2.3.3.9.</span> <span class="nav-text">日志校验功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持“无日志”模式"><span class="nav-number">2.3.3.10.</span> <span class="nav-text">支持“无日志”模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#默认启用Barrier"><span class="nav-number">2.3.3.11.</span> <span class="nav-text">默认启用Barrier</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在线碎片整理"><span class="nav-number">2.3.3.12.</span> <span class="nav-text">在线碎片整理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持快速fsck"><span class="nav-number">2.3.3.13.</span> <span class="nav-text">支持快速fsck</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持纳秒级时间戳"><span class="nav-number">2.3.3.14.</span> <span class="nav-text">支持纳秒级时间戳</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: '270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz',
+        app_key: 'k15Qbe4wFM3dLFiKQxqOLJ8J',
+        placeholder: '想不想说点什么？'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
