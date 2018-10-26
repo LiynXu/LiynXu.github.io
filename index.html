@@ -286,6 +286,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/brew_install_HEAD_libimobiledeviceFailed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/brew_install_HEAD_libimobiledeviceFailed/" itemprop="url">Requested 'libusbmuxd >= 1.1.0' but version of libusbmuxd is 1.0.10解决办法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T12:03:08+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/26/brew_install_HEAD_libimobiledeviceFailed/" class="leancloud_visitors" data-flag-title="Requested 'libusbmuxd >= 1.1.0' but version of libusbmuxd is 1.0.10解决办法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="遇见问题"><a href="#遇见问题" class="headerlink" title="遇见问题"></a>遇见问题</h3><p>在部署Flutter运行环境时遇见一个问题：<br>在终端执行 flutter doctor:下面报错，并提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install --HEAD libimobiledevice</div><div class="line">brew install ideviceinstaller</div></pre></td></tr></table></figure>
+<p>然后我们当然是执行了这两句话，</p>
+<p>但是很多人执行完了之后再次在终端执行 flutter doctor 仍然会提醒</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install --HEAD libimobiledevice</div><div class="line">brew install ideviceinstaller</div></pre></td></tr></table></figure>
+<h3 id="发现问题原因"><a href="#发现问题原因" class="headerlink" title="发现问题原因"></a>发现问题原因</h3><p>这两句话，如果这样 首先退出终端，然后打开终端。<br>再次运行flutter doctor，看一下是不是因为我们没有因为没有更新资源导致的问题。<br>如果仍然报错，那么我们有理由相信，我们的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install --HEAD libimobiledevice</div><div class="line">brew install ideviceinstaller</div></pre></td></tr></table></figure>
+<p>这两行代码可能并没有正确的执行，那么我们就再执行一次，看一下到底是什么问题。</p>
+<p>其中之一就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Requested &apos;libusbmuxd &gt;= 1.1.0&apos; but version of libusbmuxd is 1.0.10</div></pre></td></tr></table></figure>
+<p>这条信息相当的重要。</p>
+<p>告诉了我们你的某个系统组件版本过低，那么怎么办呢？<br>当然是升级了咯！！</p>
+<h3 id="寻找解决办法-升级libusbmuxd"><a href="#寻找解决办法-升级libusbmuxd" class="headerlink" title="寻找解决办法,升级libusbmuxd"></a>寻找解决办法,升级libusbmuxd</h3><p>按顺序执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">brew uninstall --ignore-dependencies libimobiledevice</div><div class="line">brew uninstall --ignore-dependencies usbmuxd</div><div class="line">brew install --HEAD usbmuxd</div><div class="line">brew unlink usbmuxd</div><div class="line">brew link usbmuxd</div></pre></td></tr></table></figure>
+<p>最后我们再次执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install --HEAD libimobiledevice</div></pre></td></tr></table></figure>
+<h3 id="验证问题是否被解决"><a href="#验证问题是否被解决" class="headerlink" title="验证问题是否被解决"></a>验证问题是否被解决</h3><p>终端再次执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flutter doctor</div></pre></td></tr></table></figure>
+<p>查看结果 <strong>下面为正常结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Doctor summary (to see all details, run flutter doctor -v):</div><div class="line">[✓] Flutter (Channel beta, v0.9.4, on Mac OS X 10.14 18A391, locale zh-Hans-CN)</div><div class="line">[✓] Android toolchain - develop for Android devices (Android SDK 28.0.2)</div><div class="line">[✓] iOS toolchain - develop for iOS devices (Xcode 10.0)</div><div class="line">[✓] Android Studio (version 3.2)</div><div class="line">[✓] VS Code (version 1.28.2)</div><div class="line">[!] Connected devices</div><div class="line">    ! No devices available</div><div class="line"></div><div class="line">! Doctor found issues in 1 category.</div></pre></td></tr></table></figure>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li><p><a href="https://www.jianshu.com/p/fe375e66c29a" target="_blank" rel="external">简书：</a><a href="https://www.jianshu.com/p/fe375e66c29a" target="_blank" rel="external">https://www.jianshu.com/p/fe375e66c29a</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83413074" target="_blank" rel="external">CSDN：</a><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83413074" target="_blank" rel="external">https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/83413074</a></p>
+</li>
+<li><p><a href="http://ilongge.cn/2018/10/16/iOS-AVAudioRecorderMP3/" target="_blank" rel="external">ilongge.cn：</a><a href="http://ilongge.cn/2018/10/16/iOS-AVAudioRecorderMP3/" target="_blank" rel="external">http://ilongge.cn/2018/10/16/iOS-AVAudioRecorderMP3/</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/DiskFileSystem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1556,144 +1714,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/18/Mac--Xcode10_library_not_found_for_-lstdc++_6_0_9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="卟败灬筱龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="卟败灬筱龙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/18/Mac--Xcode10_library_not_found_for_-lstdc++_6_0_9/" itemprop="url">Xcode10：library not found for -lstdc++.6.0.9 临时解决</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-18T12:51:09+08:00">
-                2018-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/18/Mac--Xcode10_library_not_found_for_-lstdc++_6_0_9/" class="leancloud_visitors" data-flag-title="Xcode10：library not found for -lstdc++.6.0.9 临时解决">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Xcode10：library-not-found-for-lstdc-6-0-9-临时解决"><a href="#Xcode10：library-not-found-for-lstdc-6-0-9-临时解决" class="headerlink" title="Xcode10：library not found for -lstdc++.6.0.9 临时解决"></a>Xcode10：library not found for -lstdc++.6.0.9 临时解决</h2><h3 id="下载stdc-6-0-9"><a href="#下载stdc-6-0-9" class="headerlink" title="下载stdc++.6.0.9"></a>下载stdc++.6.0.9</h3><p>提取自Xcode9</p>
-<p><a href="https://pan.baidu.com/s/1zCagMy42HGPdZj8XMfOf_Q" target="_blank" rel="external"><strong>百度云链接：stdc++.6.0.9</strong></a></p>
-<p>部分项目依赖 libstdc++.6.0.9 的会在Xcode 10无法运行</p>
-<p>其原因是Xcode 10中将libstdc++.6.0.9库文件删除，原本功能迁移至其他库</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/18/Mac--Xcode10_library_not_found_for_-lstdc++_6_0_9/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1744,7 +1764,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
