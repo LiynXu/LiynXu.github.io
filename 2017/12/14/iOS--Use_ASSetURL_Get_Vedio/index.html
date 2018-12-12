@@ -101,7 +101,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/12/14/iOS--Use_ASSetURL_Get_Vedio/index.html">
 <meta property="og:site_name" content="卟败灬筱龙">
 <meta property="og:description" content="首先导入头文件 1#import &amp;lt;Photos/Photos.h&amp;gt; iOS中assetURL样式： 1assets-library://asset/asset.mov?id=F2E6E143-4343-4B57-87F9-346936E0EDB3&amp;amp;ext=mov">
-<meta property="og:updated_time" content="2017-12-26T07:02:10.000Z">
+<meta property="og:updated_time" content="2018-12-12T02:24:22.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过assetURL获取到视频">
 <meta name="twitter:description" content="首先导入头文件 1#import &amp;lt;Photos/Photos.h&amp;gt; iOS中assetURL样式： 1assets-library://asset/asset.mov?id=F2E6E143-4343-4B57-87F9-346936E0EDB3&amp;amp;ext=mov">
@@ -370,7 +370,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">assets-library://asset/asset.mov?id=F2E6E143-4343-4B57-87F9-346936E0EDB3&amp;ext=mov</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>使用当前的URL过滤到我们想要的数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[assetUrl] options:nil];</div><div class="line"></div><div class="line">   PHAsset * PHAsset = result.firstObject;</div><div class="line"></div><div class="line"></div><div class="line">   /// 包含该视频的基础信息</div><div class="line">   PHAssetResource * resource = [[PHAssetResource assetResourcesForAsset: PHAsset] firstObject];</div><div class="line"></div><div class="line">   NSLog(@&quot;%@&quot;,resource);</div><div class="line">   /*</div><div class="line">    type:</div><div class="line">    originalFilename:</div><div class="line">    */</div><div class="line"></div><div class="line">   PHImageRequestOptions * options = [[PHImageRequestOptions alloc] init];</div><div class="line"></div><div class="line">   options.version = PHImageRequestOptionsVersionCurrent;</div><div class="line"></div><div class="line">   options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;</div><div class="line"></div><div class="line">   options.synchronous = YES;</div><div class="line"></div><div class="line">   __block NSData *videoData = nil;</div><div class="line"></div><div class="line">   [[PHImageManager defaultManager] requestImageDataForAsset: PHAsset</div><div class="line">                                                     options: options</div><div class="line">                                               resultHandler: ^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * info) &#123;</div><div class="line">                                                   NSLog(@&quot;%@&quot;,imageData);</div><div class="line">                                                       //这里的imageData就是视频数据;</div><div class="line">   &#125;];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[assetUrl] options:nil];</div><div class="line"></div><div class="line">  PHAsset * asset = result.firstObject;</div><div class="line"></div><div class="line"></div><div class="line">  /// 包含该视频的基础信息</div><div class="line">  PHAssetResource * resource = [[PHAssetResource assetResourcesForAsset: PHAsset] firstObject];</div><div class="line"></div><div class="line">  NSLog(@&quot;%@&quot;,resource);</div><div class="line">  /*</div><div class="line">   type:</div><div class="line">   originalFilename:</div><div class="line">   */</div></pre></td></tr></table></figure>
+<p>PHAsset - 获取视频数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];</div><div class="line">  options.version = PHImageRequestOptionsVersionCurrent;</div><div class="line">  options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;</div><div class="line">  </div><div class="line">  PHImageManager *manager = [PHImageManager defaultManager];</div><div class="line">  [manager requestAVAssetForVideo:asset</div><div class="line">                          options:options</div><div class="line">                    resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) &#123;</div><div class="line">                        // asset 类型为 AVURLAsset  为此资源的fileURL</div><div class="line">                        // &lt;AVURLAsset: 0x283386e60, URL = file:///var/mobile/Media/DCIM/100APPLE/IMG_0049.MOV&gt;</div><div class="line">                        AVURLAsset *urlAsset = (AVURLAsset *)asset;</div><div class="line">                        // 视频数据</div><div class="line">                        NSData *vedioData = [NSData dataWithContentsOfURL:urlAsset.URL];</div><div class="line">                        NSLog(@&quot;%@&quot;,vedioData);</div><div class="line">                    &#125;];</div></pre></td></tr></table></figure>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p><a href="https://gitee.com/LiynXu/TZImagePickerControllerDemo" target="_blank" rel="external">《TZImagePickerControllerDemo》</a></p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li><p><a href="https://www.jianshu.com/p/7796fb46e8b7" target="_blank" rel="external">简书：</a><a href="https://www.jianshu.com/p/7796fb46e8b7" target="_blank" rel="external">https://www.jianshu.com/p/7796fb46e8b7</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/78803007" target="_blank" rel="external">CSDN：</a><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/78803007" target="_blank" rel="external">https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/78803007</a></p>
+</li>
+<li><p><a href="http://ilongge.cn/2017/12/14/iOS--Use_ASSetURL_Get_Vedio/" target="_blank" rel="external">ilongge.cn：</a><a href="http://ilongge.cn/2017/12/14/iOS--Use_ASSetURL_Get_Vedio/" target="_blank" rel="external">http://ilongge.cn/2017/12/14/iOS--Use_ASSetURL_Get_Vedio/</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -467,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -589,6 +609,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number"></span> <span class="nav-text">相关链接</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
