@@ -8,7 +8,7 @@
   <entry>
     <title><![CDATA[Windwos--制作Win10 UEFI启动盘 (Install.wim文件 **大于** 4GB)]]></title>
     <url>%2F2018%2F12%2F14%2FWindwos-Create_Win10_UEFI_Intaller_2%2F</url>
-    <content type="text"><![CDATA[以此镜像为例 【Windows 10 (consumer edition), version 1809 (Updated Sept 2018) (x64) - DVD (Chinese-Simplified)】 制作Win10 UEFI 启动盘完成使用工具【Rufus】 【百度网盘 Rufus 3.4】]]></content>
+    <content type="text"><![CDATA[以此镜像为例 文件名 ：cn_windows_10_consumer_editions_version_1809_updated_dec_2018_x64_dvd_51713eef.iso SHA1 ：054a61467c2ca11d021bcc46bc044672459c834d 文件大小 ：4.99GB 发布时间 ：2018-12-19 【Windows 10 (consumer editions), version 1809 (Updated Dec 2018) (x64) - DVD (Chinese-Simplified)】 制作Win10 UEFI 启动盘U盘最好是USB3.0会快点，大小8GB或以上 使用工具【Rufus】 【百度网盘 Rufus 3.4】 1、插上U盘2、打开Rufus 3、选择镜像如图会默认选择 4、打开日志框 5、格式化警告 6、开始写入 7、等待写入完成此步要看U盘的写入性能 8、写入完成弹出启动警告 【关闭BIOS中的Secure Boot】 制作Win10 UEFI 启动盘完成相关链接 简书：https://www.jianshu.com/p/3f77d6add009 CSDN：https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/85233259 ilongge.cn：http://ilongge.cn/2017/12/14/iOS--Use_ASSetURL_Get_Vedio/]]></content>
   </entry>
   <entry>
     <title><![CDATA[Requested 'libusbmuxd >= 1.1.0' but version of libusbmuxd is 1.0.10解决办法]]></title>
