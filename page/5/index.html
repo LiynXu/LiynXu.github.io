@@ -421,6 +421,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--Custom_Ablum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/18/iOS--Custom_Ablum/" itemprop="url">iOS自定义多选相册</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T18:00:00+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/18/iOS--Custom_Ablum/" class="leancloud_visitors" data-flag-title="iOS自定义多选相册">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="自定义多选相册"><a href="#自定义多选相册" class="headerlink" title="自定义多选相册"></a><strong>自定义多选相册</strong></h4><pre><code>一个项目需要类似于安卓的多选相册，而iOS自带的Piker只能单选，所以就想到了自定义，自定义的过程是辛苦的，结果出来之后是高兴的。
+
+ &lt;!--more--&gt;
+</code></pre><h5 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h5><pre><code>本代码只展示了iOS默认的相册内容，如果读者有其他想法的欢迎再本代码基础上修改。
+</code></pre><h5 id="获取系统默认的相册"><a href="#获取系统默认的相册" class="headerlink" title="获取系统默认的相册"></a>获取系统默认的相册</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-(PHFetchResult *)smartAlbums&#123;</div><div class="line">    </div><div class="line">    if (_smartAlbums == nil) &#123;</div><div class="line">        _smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];</div><div class="line">    &#125;</div><div class="line">    return _smartAlbums;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="获取系统相册中的相片"><a href="#获取系统相册中的相片" class="headerlink" title="获取系统相册中的相片"></a>获取系统相册中的相片</h5><p>默认的照片排序是时间先后顺序，这里我也规定了按照文件创建的先后顺序来排序呢，为了避免同时引用过多的image导致内存暴增，这里使用的都是缩略图，而且只允许引用前20项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">- (void)initPhotoData&#123;</div><div class="line">    [self.photoArray removeAllObjects];</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    for (PHCollection * obj in self.smartAlbums) &#123;</div><div class="line">        if ([obj isKindOfClass:[PHAssetCollection class]]) &#123;</div><div class="line">            PHAssetCollection *collection = (PHAssetCollection *)obj;</div><div class="line">            PHFetchOptions *options = [[PHFetchOptions alloc] init];</div><div class="line">            options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@&quot;creationDate&quot; ascending:NO]];</div><div class="line">            PHFetchResult *fetchReuslt  = [PHAsset fetchAssetsInAssetCollection:collection options:options];</div><div class="line">            NSLog(@&quot;count - %ld&quot;,(unsigned long)fetchReuslt.count);</div><div class="line">            if (fetchReuslt.count == 0) &#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            NSInteger count = 20&lt;fetchReuslt.count?20:fetchReuslt.count;</div><div class="line">            __block NSInteger _index = 0;</div><div class="line">            for (NSInteger i = 0 ;i&lt;count;i++) &#123;</div><div class="line">                PHAsset *asset  = fetchReuslt[i];</div><div class="line">                //使用PHImageManager从PHAsset中请求图片</div><div class="line">                NSInteger index = _index;</div><div class="line">                MyImageManager *imageManager = [MyImageManager defaultManager];</div><div class="line">                [imageManager requestImageForAsset:asset targetSize:CGSizeMake(ItemWidth()*2-2, ItemHieght()*2-2) contentMode:PHImageContentModeAspectFill options:self.requestOption Index:index resultHandler:^(UIImage *result, NSDictionary *info, NSInteger index) &#123;</div><div class="line">                    NSInteger IDKey = [info[@&quot;PHImageResultRequestIDKey&quot;] integerValue];</div><div class="line">                    NSLog(@&quot;%@,%ld,%ld,%ld&quot;,result,(long)IDKey,index,IDKey-index);</div><div class="line">                    [weakSelf.photoArray addObject:result];</div><div class="line">                &#125;];</div><div class="line">                _index++;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            NSLog(@&quot;NO&quot;);</div><div class="line">            NSAssert1(NO, @&quot;Fetch Collect Not PHCollection:%@&quot;, obj);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    NSLog(@&quot;initPhotoDataDone&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="将获取到的缩略图展示到CollectionView上"><a href="#将获取到的缩略图展示到CollectionView上" class="headerlink" title="将获取到的缩略图展示到CollectionView上"></a>将获取到的缩略图展示到CollectionView上</h5><p><img src="http://img.blog.csdn.net/20161119181658290" alt="具体的演示效果就是这样"></p>
+<ul>
+<li>这个项目在码云的git库上有，地址为<a href="https://git.oschina.net/LiynXu/PhotoDemo.git。" target="_blank" rel="external">https://git.oschina.net/LiynXu/PhotoDemo.git。</a></li>
+<li>如果有任何意见或者建议，或者发现bug(应该是有的),请移步值git库下给予指导，3Q。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--Get_iOS_Device_Model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1492,141 +1634,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/iOS--Custom_AFNetworking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="卟败灬筱龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="卟败灬筱龙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/14/iOS--Custom_AFNetworking/" itemprop="url">简单封装AFNetworking</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T17:47:14+08:00">
-                2017-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/07/14/iOS--Custom_AFNetworking/" class="leancloud_visitors" data-flag-title="简单封装AFNetworking">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>由于本人在工作中经常会进行网络请求，实在是不想一直写那段请求代码，就自己封装了一个LiynNet类。其中使用代理完成方法回调。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/14/iOS--Custom_AFNetworking/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1677,7 +1684,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
