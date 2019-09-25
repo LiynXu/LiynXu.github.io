@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[macOS--Xcode 11 添加Application Loader]]></title>
     <url>%2F2019%2F09%2F25%2FmacOS-Xcode-11-Add-Application-Loader%2F</url>
-    <content type="text"><![CDATA[升级Xcode11之后不少人发现在Open Developer Tool中没了Application Loader。 那么如果我们还想用该怎么办呢？ 先这样找个老版的Xcode–&gt;Contents–&gt;Applications。 哎。。。这里有。 在这样拷贝到Xcode11的相同目录里。 重启Xcode1。 完美。]]></content>
+    <content type="text"><![CDATA[升级Xcode11之后不少人发现在Open Developer Tool中没了Application Loader。 那么如果我们还想用该怎么办呢？ 先这样找个老版的Xcode–&gt;Contents–&gt;Applications。 哎。。。这里有。 在这样拷贝到Xcode11的相同目录里。 重启Xcode1。 完美。 Application Loader 百度云链接]]></content>
   </entry>
   <entry>
     <title><![CDATA[iOS--DeviceSupport (已更新至13.0 (17A577))]]></title>
