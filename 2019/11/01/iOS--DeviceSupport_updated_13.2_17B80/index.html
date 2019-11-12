@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="iOS–DeviceSupport (持续更新)【使用方法】解压后导入以下目录：1/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport 【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测【注意】1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS--DeviceSupport (已更新至13.2 (17B80))">
+<meta property="og:url" content="http://yoursite.com/2019/11/01/iOS--DeviceSupport_updated_13.2_17B80/index.html">
+<meta property="og:site_name" content="卟败灬筱龙">
+<meta property="og:description" content="iOS–DeviceSupport (持续更新)【使用方法】解压后导入以下目录：1/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport 【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测【注意】1">
+<meta property="og:updated_time" content="2019-11-01T02:31:16.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS--DeviceSupport (已更新至13.2 (17B80))">
+<meta name="twitter:description" content="iOS–DeviceSupport (持续更新)【使用方法】解压后导入以下目录：1/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport 【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测【注意】1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/01/iOS--DeviceSupport_updated_13.2_17B80/"/>
+
+
+
+
+
+  <title>iOS--DeviceSupport (已更新至13.2 (17B80)) | 卟败灬筱龙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2187010a89e3f4aab1f330d62010d8ff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卟败灬筱龙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">欢迎大家</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            文章列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            腾讯公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/iOS--DeviceSupport_updated_13.2_17B80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卟败灬筱龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卟败灬筱龙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS--DeviceSupport (已更新至13.2 (17B80))</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-01T10:10:10+08:00">
+                2019-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/01/iOS--DeviceSupport_updated_13.2_17B80/" class="leancloud_visitors" data-flag-title="iOS--DeviceSupport (已更新至13.2 (17B80))">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="iOS–DeviceSupport-持续更新"><a href="#iOS–DeviceSupport-持续更新" class="headerlink" title="iOS–DeviceSupport (持续更新)"></a>iOS–DeviceSupport (持续更新)</h2><p><strong>【使用方法】解压后导入以下目录：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport</div></pre></td></tr></table></figure></p>
+<p><strong>【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测</strong><br><strong>【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测</strong><br><strong>【注意】12.4.1（16G102）版本，可以使用12.4（16G73）的DeviceSupport，Xcode10.3（10G8）上亲测</strong></p>
+<h3 id="13-2-17B80"><a href="#13-2-17B80" class="headerlink" title="13.2 (17B80)"></a>13.2 (17B80)</h3><ul>
+<li>2019年11月1号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1abr-OVfB1Btv1VPB9W3XGQ" target="_blank" rel="external">百度云链接：13.2 (17B80)</a></p>
+<h3 id="13-2-17B5068e"><a href="#13-2-17B5068e" class="headerlink" title="13.2 (17B5068e)"></a>13.2 (17B5068e)</h3><ul>
+<li>2019年10月9号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1C7nn3mC25YXQDxadMSPo6A" target="_blank" rel="external">百度云链接：13.2 (17B5068e)</a></p>
+<h3 id="13-1-1-17A853"><a href="#13-1-1-17A853" class="headerlink" title="13.1.1 (17A853)"></a>13.1.1 (17A853)</h3><ul>
+<li>2019年10月9号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/15txWJuk6juqEoaPW6iAlQw" target="_blank" rel="external">百度云链接：13.1.1 (17A853)</a></p>
+<h3 id="13-1-17A844"><a href="#13-1-17A844" class="headerlink" title="13.1 (17A844)"></a>13.1 (17A844)</h3><ul>
+<li>2019年9月24号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1M7XAAmxkng1RnGwPt3LtkQ" target="_blank" rel="external">百度云链接：13.1 (17A844)</a></p>
+<h3 id="13-0-17A577"><a href="#13-0-17A577" class="headerlink" title="13.0 (17A577)"></a>13.0 (17A577)</h3><ul>
+<li>2019年9月20号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1DIr9r8ANB1rS6ZglOtZ1bA" target="_blank" rel="external">百度云链接：13.0 (17A577)</a></p>
+<h3 id="12-4-16G77"><a href="#12-4-16G77" class="headerlink" title="12.4 (16G77)"></a>12.4 (16G77)</h3><ul>
+<li>2019年9月20号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/12zLjbcw7jHyqxwWlRbrVZw" target="_blank" rel="external">百度云链接：12.4 (16G77)</a></p>
+<h3 id="12-4-16G73"><a href="#12-4-16G73" class="headerlink" title="12.4 (16G73)"></a>12.4 (16G73)</h3><ul>
+<li>2019年7月23号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1-LfcAfVLLg82LuTUqL-q7g" target="_blank" rel="external">百度云链接：12.4 (16G73)</a></p>
+<h3 id="12-3-16F148"><a href="#12-3-16F148" class="headerlink" title="12.3 (16F148)"></a>12.3 (16F148)</h3><ul>
+<li>2019年5月11号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1dvM6ceodsuXRxSkClPrjKQ" target="_blank" rel="external">百度云链接：12.3 (16F148)</a></p>
+<h3 id="12-2-16E226"><a href="#12-2-16E226" class="headerlink" title="12.2 (16E226)"></a>12.2 (16E226)</h3><ul>
+<li>2019年3月26号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/12WPnILmzlBZOrkfs-A7S-g" target="_blank" rel="external">百度云链接：12.2 (16E226)</a>  </p>
+<h3 id="12-1-16B91"><a href="#12-1-16B91" class="headerlink" title="12.1 (16B91)"></a>12.1 (16B91)</h3><ul>
+<li>2018年10月31号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1Uqfv3ohWNE9e5Lkl9JQDJw" target="_blank" rel="external">百度云链接：12.1 (16B91)</a></p>
+<h3 id="12-1-16B5059d"><a href="#12-1-16B5059d" class="headerlink" title="12.1 (16B5059d)"></a>12.1 (16B5059d)</h3><ul>
+<li>2018年9月20号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1toeo9AX7igFEzZHp3e1GaA" target="_blank" rel="external">百度云链接：12.1 (16B5059d)</a></p>
+<h3 id="12-0-16A366"><a href="#12-0-16A366" class="headerlink" title="12.0 (16A366)"></a>12.0 (16A366)</h3><ul>
+<li>2018年9月18号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1YZM6OiKT5eGd80CqZSaMsA" target="_blank" rel="external">百度云链接：12.0 (16A366)</a></p>
+<h3 id="12-0-16A5308d"><a href="#12-0-16A5308d" class="headerlink" title="12.0 (16A5308d)"></a>12.0 (16A5308d)</h3><ul>
+<li>2018年6月29号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/15fDH4GqQ50tzVtwQCa8vLw" target="_blank" rel="external">百度云链接：12.0 (16A5308d)</a></p>
+<h3 id="12-0-16A5288q"><a href="#12-0-16A5288q" class="headerlink" title="12.0 (16A5288q)"></a>12.0 (16A5288q)</h3><ul>
+<li>2018年6月29号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/10NaCjqzTNsIarYuayJO3vQ" target="_blank" rel="external">百度云链接：12.0 (16A5288q)</a></p>
+<h3 id="11-4"><a href="#11-4" class="headerlink" title="11.4"></a>11.4</h3><ul>
+<li>2018年6月26号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1Me1v7xmZ0FV3lYeaAkgP-w" target="_blank" rel="external">百度云链接：11.4 </a></p>
+<h3 id="11-3-15E217"><a href="#11-3-15E217" class="headerlink" title="11.3 (15E217)"></a>11.3 (15E217)</h3><ul>
+<li>2018年4月23号更新</li>
+</ul>
+<p><a href="https://pan.baidu.com/s/1ngB7iriR_8VeIy_KXyB6DA" target="_blank" rel="external">百度云链接：11.3 (15E217) </a></p>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><ul>
+<li><p><a href="https://www.jianshu.com/p/e365df8749f3" target="_blank" rel="external">简书：</a><a href="https://www.jianshu.com/p/e365df8749f3" target="_blank" rel="external">https://www.jianshu.com/p/e365df8749f3</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/82795731" target="_blank" rel="external">CSDN：</a><a href="https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/82795731" target="_blank" rel="external">https://blog.csdn.net/ZuoWeiXiaoDuZuoZuo/article/details/82795731</a></p>
+</li>
+</ul>
+<ul>
+<li><a href="http://ilongge.cn/2019/09/20/iOS--DeviceSupport_updated_13.0_17A577/" target="_blank" rel="external">ilongge.cn：</a><a href="http://ilongge.cn/2019/09/20/iOS--DeviceSupport_updated_13.0_17A577/" target="_blank" rel="external">http://ilongge.cn/2019/09/20/iOS--DeviceSupport_updated_13.0_17A577/</a> </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/25/macOS-Xcode-11-Add-Application-Loader/" rel="next" title="macOS--Xcode 11 添加Application Loader">
+                <i class="fa fa-chevron-left"></i> macOS--Xcode 11 添加Application Loader
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/ios-application-install-page/" rel="prev" title="ios_application_install_page">
+                ios_application_install_page <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="卟败灬筱龙" />
+          <p class="site-author-name" itemprop="name">卟败灬筱龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">这个人很懒什么也没留下</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/ZuoWeiXiaoDuZuoZuo" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/152692551fda" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.qwop.cn" target="_blank" title="阿里云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      阿里云
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://ilongge.cn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.baidu.com/" title="百度" target="_blank">百度</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.google.com" title="Google" target="_blank">Google</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://yizibi.github.io/" title="一之笔" target="_blank">一之笔</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.daliansky.net/" title="黑锅小兵的部落阁" target="_blank">黑锅小兵的部落阁</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS–DeviceSupport-持续更新"><span class="nav-number">1.</span> <span class="nav-text">iOS–DeviceSupport (持续更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-17B80"><span class="nav-number">1.1.</span> <span class="nav-text">13.2 (17B80)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-17B5068e"><span class="nav-number">1.2.</span> <span class="nav-text">13.2 (17B5068e)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-1-1-17A853"><span class="nav-number">1.3.</span> <span class="nav-text">13.1.1 (17A853)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-1-17A844"><span class="nav-number">1.4.</span> <span class="nav-text">13.1 (17A844)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-0-17A577"><span class="nav-number">1.5.</span> <span class="nav-text">13.0 (17A577)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-16G77"><span class="nav-number">1.6.</span> <span class="nav-text">12.4 (16G77)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-16G73"><span class="nav-number">1.7.</span> <span class="nav-text">12.4 (16G73)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-16F148"><span class="nav-number">1.8.</span> <span class="nav-text">12.3 (16F148)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-16E226"><span class="nav-number">1.9.</span> <span class="nav-text">12.2 (16E226)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-16B91"><span class="nav-number">1.10.</span> <span class="nav-text">12.1 (16B91)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-16B5059d"><span class="nav-number">1.11.</span> <span class="nav-text">12.1 (16B5059d)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-0-16A366"><span class="nav-number">1.12.</span> <span class="nav-text">12.0 (16A366)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-0-16A5308d"><span class="nav-number">1.13.</span> <span class="nav-text">12.0 (16A5308d)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-0-16A5288q"><span class="nav-number">1.14.</span> <span class="nav-text">12.0 (16A5288q)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-4"><span class="nav-number">1.15.</span> <span class="nav-text">11.4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-15E217"><span class="nav-number">1.16.</span> <span class="nav-text">11.3 (15E217)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">1.17.</span> <span class="nav-text">相关链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卟败灬筱龙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Gemini
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: '270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz',
+        app_key: 'k15Qbe4wFM3dLFiKQxqOLJ8J',
+        placeholder: '想不想说点什么？'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("270OVx5HOLNhog9ym7rvIcLF-gzGzoHsz", "k15Qbe4wFM3dLFiKQxqOLJ8J");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
