@@ -692,7 +692,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--HealthKit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--Custom_Ablum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="卟败灬筱龙">
@@ -711,7 +711,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/18/iOS--HealthKit/" itemprop="url">iOS HealthKit简单介绍</a></h1>
+                <a class="post-title-link" href="/2017/08/18/iOS--Custom_Ablum/" itemprop="url">iOS自定义多选相册</a></h1>
         
 
         <div class="post-meta">
@@ -741,7 +741,7 @@
 
           
           
-             <span id="/2017/08/18/iOS--HealthKit/" class="leancloud_visitors" data-flag-title="iOS HealthKit简单介绍">
+             <span id="/2017/08/18/iOS--Custom_Ablum/" class="leancloud_visitors" data-flag-title="iOS自定义多选相册">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -773,14 +773,21 @@
 
       
         
-          <h2 id="HealthKit简单介绍"><a href="#HealthKit简单介绍" class="headerlink" title="HealthKit简单介绍"></a>HealthKit简单介绍</h2><p>目前很多App都会有访问健康数据的需求，那么我们就不得不使用HealthKit。HealthKit框架提供了一个结构，应用可以使用它来分享健康和健身数据。HealthKit管理从不同来源获得的数据，并根据用户的偏好设置，自动将不同来源的所有数据合并起来。应用还可以获取每个来源的原始数据，然后执行自己的数据合并。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/18/iOS--HealthKit/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h4 id="自定义多选相册"><a href="#自定义多选相册" class="headerlink" title="自定义多选相册"></a><strong>自定义多选相册</strong></h4><pre><code>一个项目需要类似于安卓的多选相册，而iOS自带的Piker只能单选，所以就想到了自定义，自定义的过程是辛苦的，结果出来之后是高兴的。
+
+ &lt;!--more--&gt;
+</code></pre><h5 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h5><pre><code>本代码只展示了iOS默认的相册内容，如果读者有其他想法的欢迎再本代码基础上修改。
+</code></pre><h5 id="获取系统默认的相册"><a href="#获取系统默认的相册" class="headerlink" title="获取系统默认的相册"></a>获取系统默认的相册</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-(PHFetchResult *)smartAlbums&#123;</div><div class="line">    </div><div class="line">    if (_smartAlbums == nil) &#123;</div><div class="line">        _smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];</div><div class="line">    &#125;</div><div class="line">    return _smartAlbums;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="获取系统相册中的相片"><a href="#获取系统相册中的相片" class="headerlink" title="获取系统相册中的相片"></a>获取系统相册中的相片</h5><p>默认的照片排序是时间先后顺序，这里我也规定了按照文件创建的先后顺序来排序呢，为了避免同时引用过多的image导致内存暴增，这里使用的都是缩略图，而且只允许引用前20项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">- (void)initPhotoData&#123;</div><div class="line">    [self.photoArray removeAllObjects];</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    for (PHCollection * obj in self.smartAlbums) &#123;</div><div class="line">        if ([obj isKindOfClass:[PHAssetCollection class]]) &#123;</div><div class="line">            PHAssetCollection *collection = (PHAssetCollection *)obj;</div><div class="line">            PHFetchOptions *options = [[PHFetchOptions alloc] init];</div><div class="line">            options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@&quot;creationDate&quot; ascending:NO]];</div><div class="line">            PHFetchResult *fetchReuslt  = [PHAsset fetchAssetsInAssetCollection:collection options:options];</div><div class="line">            NSLog(@&quot;count - %ld&quot;,(unsigned long)fetchReuslt.count);</div><div class="line">            if (fetchReuslt.count == 0) &#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            NSInteger count = 20&lt;fetchReuslt.count?20:fetchReuslt.count;</div><div class="line">            __block NSInteger _index = 0;</div><div class="line">            for (NSInteger i = 0 ;i&lt;count;i++) &#123;</div><div class="line">                PHAsset *asset  = fetchReuslt[i];</div><div class="line">                //使用PHImageManager从PHAsset中请求图片</div><div class="line">                NSInteger index = _index;</div><div class="line">                MyImageManager *imageManager = [MyImageManager defaultManager];</div><div class="line">                [imageManager requestImageForAsset:asset targetSize:CGSizeMake(ItemWidth()*2-2, ItemHieght()*2-2) contentMode:PHImageContentModeAspectFill options:self.requestOption Index:index resultHandler:^(UIImage *result, NSDictionary *info, NSInteger index) &#123;</div><div class="line">                    NSInteger IDKey = [info[@&quot;PHImageResultRequestIDKey&quot;] integerValue];</div><div class="line">                    NSLog(@&quot;%@,%ld,%ld,%ld&quot;,result,(long)IDKey,index,IDKey-index);</div><div class="line">                    [weakSelf.photoArray addObject:result];</div><div class="line">                &#125;];</div><div class="line">                _index++;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            NSLog(@&quot;NO&quot;);</div><div class="line">            NSAssert1(NO, @&quot;Fetch Collect Not PHCollection:%@&quot;, obj);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    NSLog(@&quot;initPhotoDataDone&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="将获取到的缩略图展示到CollectionView上"><a href="#将获取到的缩略图展示到CollectionView上" class="headerlink" title="将获取到的缩略图展示到CollectionView上"></a>将获取到的缩略图展示到CollectionView上</h5><p><img src="http://img.blog.csdn.net/20161119181658290" alt="具体的演示效果就是这样"></p>
+<ul>
+<li>这个项目在码云的git库上有，地址为<a href="https://git.oschina.net/LiynXu/PhotoDemo.git。" target="_blank" rel="external">https://git.oschina.net/LiynXu/PhotoDemo.git。</a></li>
+<li>如果有任何意见或者建议，或者发现bug(应该是有的),请移步值git库下给予指导，3Q。</li>
+</ul>
+
+          
         
       
     </div>
@@ -962,7 +969,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--Custom_Ablum/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/iOS--HealthKit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="卟败灬筱龙">
@@ -981,7 +988,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/18/iOS--Custom_Ablum/" itemprop="url">iOS自定义多选相册</a></h1>
+                <a class="post-title-link" href="/2017/08/18/iOS--HealthKit/" itemprop="url">iOS HealthKit简单介绍</a></h1>
         
 
         <div class="post-meta">
@@ -1011,7 +1018,7 @@
 
           
           
-             <span id="/2017/08/18/iOS--Custom_Ablum/" class="leancloud_visitors" data-flag-title="iOS自定义多选相册">
+             <span id="/2017/08/18/iOS--HealthKit/" class="leancloud_visitors" data-flag-title="iOS HealthKit简单介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1043,21 +1050,14 @@
 
       
         
-          
-            <h4 id="自定义多选相册"><a href="#自定义多选相册" class="headerlink" title="自定义多选相册"></a><strong>自定义多选相册</strong></h4><pre><code>一个项目需要类似于安卓的多选相册，而iOS自带的Piker只能单选，所以就想到了自定义，自定义的过程是辛苦的，结果出来之后是高兴的。
-
- &lt;!--more--&gt;
-</code></pre><h5 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h5><pre><code>本代码只展示了iOS默认的相册内容，如果读者有其他想法的欢迎再本代码基础上修改。
-</code></pre><h5 id="获取系统默认的相册"><a href="#获取系统默认的相册" class="headerlink" title="获取系统默认的相册"></a>获取系统默认的相册</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-(PHFetchResult *)smartAlbums&#123;</div><div class="line">    </div><div class="line">    if (_smartAlbums == nil) &#123;</div><div class="line">        _smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];</div><div class="line">    &#125;</div><div class="line">    return _smartAlbums;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="获取系统相册中的相片"><a href="#获取系统相册中的相片" class="headerlink" title="获取系统相册中的相片"></a>获取系统相册中的相片</h5><p>默认的照片排序是时间先后顺序，这里我也规定了按照文件创建的先后顺序来排序呢，为了避免同时引用过多的image导致内存暴增，这里使用的都是缩略图，而且只允许引用前20项。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">- (void)initPhotoData&#123;</div><div class="line">    [self.photoArray removeAllObjects];</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    for (PHCollection * obj in self.smartAlbums) &#123;</div><div class="line">        if ([obj isKindOfClass:[PHAssetCollection class]]) &#123;</div><div class="line">            PHAssetCollection *collection = (PHAssetCollection *)obj;</div><div class="line">            PHFetchOptions *options = [[PHFetchOptions alloc] init];</div><div class="line">            options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@&quot;creationDate&quot; ascending:NO]];</div><div class="line">            PHFetchResult *fetchReuslt  = [PHAsset fetchAssetsInAssetCollection:collection options:options];</div><div class="line">            NSLog(@&quot;count - %ld&quot;,(unsigned long)fetchReuslt.count);</div><div class="line">            if (fetchReuslt.count == 0) &#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            NSInteger count = 20&lt;fetchReuslt.count?20:fetchReuslt.count;</div><div class="line">            __block NSInteger _index = 0;</div><div class="line">            for (NSInteger i = 0 ;i&lt;count;i++) &#123;</div><div class="line">                PHAsset *asset  = fetchReuslt[i];</div><div class="line">                //使用PHImageManager从PHAsset中请求图片</div><div class="line">                NSInteger index = _index;</div><div class="line">                MyImageManager *imageManager = [MyImageManager defaultManager];</div><div class="line">                [imageManager requestImageForAsset:asset targetSize:CGSizeMake(ItemWidth()*2-2, ItemHieght()*2-2) contentMode:PHImageContentModeAspectFill options:self.requestOption Index:index resultHandler:^(UIImage *result, NSDictionary *info, NSInteger index) &#123;</div><div class="line">                    NSInteger IDKey = [info[@&quot;PHImageResultRequestIDKey&quot;] integerValue];</div><div class="line">                    NSLog(@&quot;%@,%ld,%ld,%ld&quot;,result,(long)IDKey,index,IDKey-index);</div><div class="line">                    [weakSelf.photoArray addObject:result];</div><div class="line">                &#125;];</div><div class="line">                _index++;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            NSLog(@&quot;NO&quot;);</div><div class="line">            NSAssert1(NO, @&quot;Fetch Collect Not PHCollection:%@&quot;, obj);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    NSLog(@&quot;initPhotoDataDone&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="将获取到的缩略图展示到CollectionView上"><a href="#将获取到的缩略图展示到CollectionView上" class="headerlink" title="将获取到的缩略图展示到CollectionView上"></a>将获取到的缩略图展示到CollectionView上</h5><p><img src="http://img.blog.csdn.net/20161119181658290" alt="具体的演示效果就是这样"></p>
-<ul>
-<li>这个项目在码云的git库上有，地址为<a href="https://git.oschina.net/LiynXu/PhotoDemo.git。" target="_blank" rel="external">https://git.oschina.net/LiynXu/PhotoDemo.git。</a></li>
-<li>如果有任何意见或者建议，或者发现bug(应该是有的),请移步值git库下给予指导，3Q。</li>
-</ul>
-
-          
+          <h2 id="HealthKit简单介绍"><a href="#HealthKit简单介绍" class="headerlink" title="HealthKit简单介绍"></a>HealthKit简单介绍</h2><p>目前很多App都会有访问健康数据的需求，那么我们就不得不使用HealthKit。HealthKit框架提供了一个结构，应用可以使用它来分享健康和健身数据。HealthKit管理从不同来源获得的数据，并根据用户的偏好设置，自动将不同来源的所有数据合并起来。应用还可以获取每个来源的原始数据，然后执行自己的数据合并。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/18/iOS--HealthKit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
